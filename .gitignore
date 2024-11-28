@@ -12,6 +12,7 @@
 /prisma/db.mysql
 /prisma/db.mysql-journal
 db.mysql
+/mysql/
 
 # next.js
 /.next/
