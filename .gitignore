@@ -9,9 +9,9 @@
 /coverage
 
 # database
-/prisma/db.sqlite
-/prisma/db.sqlite-journal
-db.sqlite
+/prisma/db.mysql
+/prisma/db.mysql-journal
+db.mysql
 
 # next.js
 /.next/
