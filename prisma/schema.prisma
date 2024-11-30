@@ -41,8 +41,8 @@ model Civilization {
 model EffectiveCivilization {
   civilization_one_id Int
   civilization_two_id Int
-  civilization_one    Civilization @relation("EffectiveCivilizationOne", fields: [civilization_one_id], references: [id])
-  civilization_two    Civilization @relation("EffectiveCivilizationTwo", fields: [civilization_two_id], references: [id])
+  civilization_one    Civilization @relation("EffectiveCivilizationOne", fields: [civilization_one_id], references: [id], onDelete: Cascade)
+  civilization_two    Civilization @relation("EffectiveCivilizationTwo", fields: [civilization_two_id], references: [id], onDelete: Cascade)
 
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
@@ -57,8 +57,8 @@ model EffectiveCivilization {
 model SynergyCivilization {
   civilization_one_id Int
   civilization_two_id Int
-  civilization_one    Civilization @relation("SynergyCivilizationOne", fields: [civilization_one_id], references: [id])
-  civilization_two    Civilization @relation("SynergyCivilizationTwo", fields: [civilization_two_id], references: [id])
+  civilization_one    Civilization @relation("SynergyCivilizationOne", fields: [civilization_one_id], references: [id], onDelete: Cascade)
+  civilization_two    Civilization @relation("SynergyCivilizationTwo", fields: [civilization_two_id], references: [id], onDelete: Cascade)
 
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
@@ -73,8 +73,8 @@ model SynergyCivilization {
 model CounterCivilization {
   civilization_one_id Int
   civilization_two_id Int
-  civilization_one    Civilization @relation("CounterCivilizationOne", fields: [civilization_one_id], references: [id])
-  civilization_two    Civilization @relation("CounterCivilizationTwo", fields: [civilization_two_id], references: [id])
+  civilization_one    Civilization @relation("CounterCivilizationOne", fields: [civilization_one_id], references: [id], onDelete: Cascade)
+  civilization_two    Civilization @relation("CounterCivilizationTwo", fields: [civilization_two_id], references: [id], onDelete: Cascade)
 
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
@@ -89,8 +89,8 @@ model CounterCivilization {
 model EffectiveUnit {
   unit_one_id Int
   unit_two_id Int
-  unit_one    Unit @relation("EffectiveUnitOne", fields: [unit_one_id], references: [id])
-  unit_two    Unit @relation("EffectiveUnitTwo", fields: [unit_two_id], references: [id])
+  unit_one    Unit @relation("EffectiveUnitOne", fields: [unit_one_id], references: [id], onDelete: Cascade)
+  unit_two    Unit @relation("EffectiveUnitTwo", fields: [unit_two_id], references: [id], onDelete: Cascade)
 
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
@@ -105,8 +105,8 @@ model EffectiveUnit {
 model CounterUnit {
   unit_one_id Int
   unit_two_id Int
-  unit_one    Unit @relation("CounterUnitOne", fields: [unit_one_id], references: [id])
-  unit_two    Unit @relation("CounterUnitTwo", fields: [unit_two_id], references: [id])
+  unit_one    Unit @relation("CounterUnitOne", fields: [unit_one_id], references: [id], onDelete: Cascade)
+  unit_two    Unit @relation("CounterUnitTwo", fields: [unit_two_id], references: [id], onDelete: Cascade)
 
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
@@ -121,8 +121,8 @@ model CounterUnit {
 model SynergyUnit {
   unit_one_id Int
   unit_two_id Int
-  unit_one    Unit @relation("SynergyUnitOne", fields: [unit_one_id], references: [id])
-  unit_two    Unit @relation("SynergyUnitTwo", fields: [unit_two_id], references: [id])
+  unit_one    Unit @relation("SynergyUnitOne", fields: [unit_one_id], references: [id], onDelete: Cascade)
+  unit_two    Unit @relation("SynergyUnitTwo", fields: [unit_two_id], references: [id], onDelete: Cascade)
 
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
@@ -137,8 +137,8 @@ model SynergyUnit {
 model UniqueUnit {
   civilization_id Int
   unit_id         Int          @unique
-  civilization    Civilization @relation("UniqueUnitCivilization", fields: [civilization_id], references: [id])
-  unit            Unit         @relation("UniqueUnitUnit", fields: [unit_id], references: [id])
+  civilization    Civilization @relation("UniqueUnitCivilization", fields: [civilization_id], references: [id], onDelete: Cascade)
+  unit            Unit         @relation("UniqueUnitUnit", fields: [unit_id], references: [id], onDelete: Cascade)
 
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
@@ -153,8 +153,8 @@ model UniqueUnit {
 model CompositionUnit {
   civilization_id Int
   unit_id         Int          @unique
-  civilization    Civilization @relation("CompositionUnitCivilization", fields: [civilization_id], references: [id])
-  unit            Unit         @relation("CompositionUnitUnit", fields: [unit_id], references: [id])
+  civilization    Civilization @relation("CompositionUnitCivilization", fields: [civilization_id], references: [id], onDelete: Cascade)
+  unit            Unit         @relation("CompositionUnitUnit", fields: [unit_id], references: [id], onDelete: Cascade)
 
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
@@ -172,7 +172,7 @@ model CivilizationBonus {
   description String
 
   civilization_id Int
-  civilization    Civilization @relation("CivilizationBonus", fields: [civilization_id], references: [id])
+  civilization    Civilization @relation("CivilizationBonus", fields: [civilization_id], references: [id], onDelete: Cascade)
 
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
@@ -188,7 +188,7 @@ model TeamBonus {
   description String
 
   civilization_id Int
-  civilization    Civilization @relation("TeamBonus", fields: [civilization_id], references: [id])
+  civilization    Civilization @relation("TeamBonus", fields: [civilization_id], references: [id], onDelete: Cascade)
 
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
@@ -204,7 +204,7 @@ model UniqueTechnology {
   description String
 
   civilization_id Int
-  civilization    Civilization @relation("UniqueTechnology", fields: [civilization_id], references: [id])
+  civilization    Civilization @relation("UniqueTechnology", fields: [civilization_id], references: [id], onDelete: Cascade)
 
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
@@ -220,7 +220,7 @@ model UniqueBuilding {
   description String
 
   civilization_id Int
-  civilization    Civilization @relation("UniqueBuilding", fields: [civilization_id], references: [id])
+  civilization    Civilization @relation("UniqueBuilding", fields: [civilization_id], references: [id], onDelete: Cascade)
 
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
