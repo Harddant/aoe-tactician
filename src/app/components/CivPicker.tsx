@@ -1,27 +1,23 @@
-'use client'
+"use client"
 
-import { useRouter } from "next/navigation";
-import { api } from "../api/trpc/[trpc]/route";
+
+import { api } from "@/trpc/react";
+import { type Civilization } from "@prisma/client";
+
+
 
 
 export const CivPicker = () => {
-    const {query} = useRouter();
-    const { id } = query;
+    const civilizationQuery = api.civilization.getAll.useQuery();
 
-    const civilizationQuery = api.civilization.getbyId.useQuery(
-        { id },
-        {
-            enabled: !!id,
-        }
-    );
 
-    if (civilizationQuery.isLoading) return <p>Loading civilization...</p>;
-    if (civilizationQuery.isError) return <p>Error loading civilization</p>;
 
 
     return (
         <div>
-            <h1>{civilizationQuery.data?.name || "Civilization not found"}</h1>
+            {civilizationQuery.data?.map((civilization: Civilization, index: number) => (
+              <p key={index}>{civilization.name}</p>
+            ))}
         </div>
     );
 };
