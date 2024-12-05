@@ -7,3 +7,17 @@ html {
     height: 100%;
     background-color: #181C29;
 }
+
+.cms-link {
+    font-size: 28px;
+    color: #3B82F6;
+    transition: all 500ms;
+}
+
+.cms-link:hover {
+    color: #F6AF3B
+}
+
+.cms-link-selected {
+    color: #F6AF3B
+}
