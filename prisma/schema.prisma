@@ -2,21 +2,309 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 datasource db {
-    provider = "mysql"
-    url      = env("DATABASE_URL")
-    relationMode = "prisma"
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
 generator client {
-    provider = "prisma-client-js"
-    binaryTargets = ["native", "debian-openssl-3.0.x", "debian-openssl-1.1.x"]
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-1.0.x", "debian-openssl-1.1.x", "linux-musl"]
 }
 
-model Post {
-    id        Int      @id @default(autoincrement())
-    name      String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+model Civilization {
+  id   Int    @id @default(autoincrement())
+  name String
+  logo String
 
-    @@index([name])
+  civilization_bonuses        CivilizationBonus[]     @relation("CivilizationBonus")
+  team_bonuses                TeamBonus[]             @relation("TeamBonus")
+  unique_technologies         UniqueTechnology[]      @relation("UniqueTechnology")
+  unique_buildings            UniqueBuilding[]        @relation("UniqueBuilding")
+  unique_units                UniqueUnit[]            @relation("UniqueUnitCivilization")
+  composition_units           CompositionUnit[]       @relation("CompositionUnitCivilization")
+  effective_civilization_ones EffectiveCivilization[] @relation("EffectiveCivilizationOne")
+  effective_civilization_twos EffectiveCivilization[] @relation("EffectiveCivilizationTwo")
+  synergy_civilization_ones   SynergyCivilization[]   @relation("SynergyCivilizationOne")
+  synergy_civilization_twos   SynergyCivilization[]   @relation("SynergyCivilizationTwo")
+  counter_civilization_ones   CounterCivilization[]   @relation("CounterCivilizationOne")
+  counter_civilization_twos   CounterCivilization[]   @relation("CounterCivilizationTwo")
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  deleted_at DateTime @default(now())
+
+  @@index([id])
+  @@map("civilization")
+}
+
+model EffectiveCivilization {
+  civilization_one_id Int
+  civilization_two_id Int
+  civilization_one    Civilization @relation("EffectiveCivilizationOne", fields: [civilization_one_id], references: [id], onDelete: Cascade)
+  civilization_two    Civilization @relation("EffectiveCivilizationTwo", fields: [civilization_two_id], references: [id], onDelete: Cascade)
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  deleted_at DateTime @default(now())
+
+  @@id([civilization_one_id, civilization_two_id])
+  @@index([civilization_one_id])
+  @@index([civilization_two_id])
+  @@map("effectiveCivilization")
+}
+
+model SynergyCivilization {
+  civilization_one_id Int
+  civilization_two_id Int
+  civilization_one    Civilization @relation("SynergyCivilizationOne", fields: [civilization_one_id], references: [id], onDelete: Cascade)
+  civilization_two    Civilization @relation("SynergyCivilizationTwo", fields: [civilization_two_id], references: [id], onDelete: Cascade)
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  deleted_at DateTime @default(now())
+
+  @@id([civilization_one_id, civilization_two_id])
+  @@index([civilization_one_id])
+  @@index([civilization_two_id])
+  @@map("synergyCivilization")
+}
+
+model CounterCivilization {
+  civilization_one_id Int
+  civilization_two_id Int
+  civilization_one    Civilization @relation("CounterCivilizationOne", fields: [civilization_one_id], references: [id], onDelete: Cascade)
+  civilization_two    Civilization @relation("CounterCivilizationTwo", fields: [civilization_two_id], references: [id], onDelete: Cascade)
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  deleted_at DateTime @default(now())
+
+  @@id([civilization_one_id, civilization_two_id])
+  @@index([civilization_one_id])
+  @@index([civilization_two_id])
+  @@map("counterCivilization")
+}
+
+model EffectiveUnit {
+  unit_one_id Int
+  unit_two_id Int
+  unit_one    Unit @relation("EffectiveUnitOne", fields: [unit_one_id], references: [id], onDelete: Cascade)
+  unit_two    Unit @relation("EffectiveUnitTwo", fields: [unit_two_id], references: [id], onDelete: Cascade)
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  deleted_at DateTime @default(now())
+
+  @@id([unit_one_id, unit_two_id])
+  @@index([unit_one_id])
+  @@index([unit_two_id])
+  @@map("effectiveUnit")
+}
+
+model CounterUnit {
+  unit_one_id Int
+  unit_two_id Int
+  unit_one    Unit @relation("CounterUnitOne", fields: [unit_one_id], references: [id], onDelete: Cascade)
+  unit_two    Unit @relation("CounterUnitTwo", fields: [unit_two_id], references: [id], onDelete: Cascade)
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  deleted_at DateTime @default(now())
+
+  @@id([unit_one_id, unit_two_id])
+  @@index([unit_one_id])
+  @@index([unit_two_id])
+  @@map("counterUnit")
+}
+
+model SynergyUnit {
+  unit_one_id Int
+  unit_two_id Int
+  unit_one    Unit @relation("SynergyUnitOne", fields: [unit_one_id], references: [id], onDelete: Cascade)
+  unit_two    Unit @relation("SynergyUnitTwo", fields: [unit_two_id], references: [id], onDelete: Cascade)
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  deleted_at DateTime @default(now())
+
+  @@id([unit_one_id, unit_two_id])
+  @@index([unit_one_id])
+  @@index([unit_two_id])
+  @@map("synergyUnit")
+}
+
+model UniqueUnit {
+  civilization_id Int
+  unit_id         Int          @unique
+  civilization    Civilization @relation("UniqueUnitCivilization", fields: [civilization_id], references: [id], onDelete: Cascade)
+  unit            Unit         @relation("UniqueUnitUnit", fields: [unit_id], references: [id], onDelete: Cascade)
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  deleted_at DateTime @default(now())
+
+  @@id([civilization_id, unit_id])
+  @@index([civilization_id])
+  @@index([unit_id])
+  @@map("uniqueUnit")
+}
+
+model CompositionUnit {
+  civilization_id Int
+  unit_id         Int          @unique
+  civilization    Civilization @relation("CompositionUnitCivilization", fields: [civilization_id], references: [id], onDelete: Cascade)
+  unit            Unit         @relation("CompositionUnitUnit", fields: [unit_id], references: [id], onDelete: Cascade)
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  deleted_at DateTime @default(now())
+
+  @@id([civilization_id, unit_id])
+  @@index([civilization_id])
+  @@index([unit_id])
+  @@map("compositionUnit")
+}
+
+model CivilizationBonus {
+  id          Int    @id @default(autoincrement())
+  name        String
+  description String
+
+  civilization_id Int
+  civilization    Civilization @relation("CivilizationBonus", fields: [civilization_id], references: [id], onDelete: Cascade)
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  deleted_at DateTime @default(now())
+
+  @@index([civilization_id])
+  @@map("civilizationBonus")
+}
+
+model TeamBonus {
+  id          Int    @id @default(autoincrement())
+  name        String
+  description String
+
+  civilization_id Int
+  civilization    Civilization @relation("TeamBonus", fields: [civilization_id], references: [id], onDelete: Cascade)
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  deleted_at DateTime @default(now())
+
+  @@index([civilization_id])
+  @@map("teamBonus")
+}
+
+model UniqueTechnology {
+  id          Int    @id @default(autoincrement())
+  name        String
+  description String
+
+  civilization_id Int
+  civilization    Civilization @relation("UniqueTechnology", fields: [civilization_id], references: [id], onDelete: Cascade)
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  deleted_at DateTime @default(now())
+
+  @@index([civilization_id])
+  @@map("uniqueTechnology")
+}
+
+model UniqueBuilding {
+  id          Int    @id @default(autoincrement())
+  name        String
+  description String
+
+  civilization_id Int
+  civilization    Civilization @relation("UniqueBuilding", fields: [civilization_id], references: [id], onDelete: Cascade)
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  deleted_at DateTime @default(now())
+
+  @@index([civilization_id])
+  @@map("uniqueBuilding")
+}
+
+model Age {
+  id   Int    @id @default(autoincrement())
+  name String
+  icon String
+
+  parent_age_id Int?
+  parent_age    Age?   @relation("ParentAge", fields: [parent_age_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  child_ages    Age[]  @relation("ParentAge")
+  child_units   Unit[] @relation("UnitAge")
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  deleted_at DateTime @default(now())
+
+  @@index([parent_age_id])
+  @@map("age")
+}
+
+model UnitType {
+  id   Int    @id @default(autoincrement())
+  type String
+
+  child_units Unit[] @relation("UnitType")
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  deleted_at DateTime @default(now())
+
+  @@index([id])
+  @@map("unitType")
+}
+
+model Unit {
+  id           Int    @id @default(autoincrement())
+  name         String
+  description  String
+  icon         String
+  train_food   Int
+  train_wood   Int
+  train_gold   Int
+  train_time   Float
+  upgrade_food Int
+  upgrade_wood Int
+  upgrade_gold Int
+  upgrade_time Float
+  hp           Int
+  attack       Int
+  reload_time  Float
+  armour       Int
+  pierce       Int
+  speed        Float
+  line_of_site Float
+
+  unit_type_id        Int
+  unit_type           UnitType         @relation("UnitType", fields: [unit_type_id], references: [id])
+  age_id              Int
+  age                 Age              @relation("UnitAge", fields: [age_id], references: [id])
+  parent_unit_id      Int?
+  parent_unit         Unit?            @relation("ParentUnit", fields: [parent_unit_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  child_units         Unit[]           @relation("ParentUnit")
+  unique_unit         UniqueUnit?      @relation("UniqueUnitUnit")
+  composition_unit    CompositionUnit? @relation("CompositionUnitUnit")
+  effective_unit_ones EffectiveUnit[]  @relation("EffectiveUnitOne")
+  effective_unit_twos EffectiveUnit[]  @relation("EffectiveUnitTwo")
+  synergy_unit_ones   SynergyUnit[]    @relation("SynergyUnitOne")
+  synergy_unit_twos   SynergyUnit[]    @relation("SynergyUnitTwo")
+  counter_unit_ones   CounterUnit[]    @relation("CounterUnitOne")
+  counter_unit_twos   CounterUnit[]    @relation("CounterUnitTwo")
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  deleted_at DateTime @default(now())
+
+  @@index([parent_unit_id])
+  @@index([age_id])
+  @@index([unit_type_id])
+  @@map("unit")
 }
