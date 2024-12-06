@@ -6,10 +6,8 @@ import { CivPicker } from "@/app/components/CivPicker";
 export default async function Home() {
   return (
     <HydrateClient>
-      <div>
         <Navbar />
         <CivPicker />
-      </div>
     </HydrateClient>
   );
 }
