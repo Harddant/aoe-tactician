@@ -1,11 +1,11 @@
 import { HydrateClient } from "@/trpc/server";
-import { Main } from "@/app/components/Cms/Main";
+import { Layout } from "@/app/components/Cms/Layout";
 
 export default async function Page() {
 
     return (
         <HydrateClient>
-            <Main />
+            <Layout />
         </HydrateClient>
     );
 }
