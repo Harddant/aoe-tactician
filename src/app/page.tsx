@@ -6,6 +6,7 @@ import { CivilizationSection } from "./components/CivilizationSection";
 export default async function Home() {
   return (
     <HydrateClient>
+    <div>
         <Navbar />
         <CivilizationSection />
       </div>
