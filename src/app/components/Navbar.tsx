@@ -15,7 +15,7 @@ export const Navbar = () => {
     return (
         <nav className="border-b-[1px] border-t-[1px] border-white text-white ">
             <div className="flex items-center justify-between container mx-auto">
-                <div className="flex items-center justify-center pr-24 mt-4">
+                <div className="flex items-center justify-center pr-24 pl-4 my-2">
                     <Image
                         src="/tactician-logo.png"
                         width={60}
