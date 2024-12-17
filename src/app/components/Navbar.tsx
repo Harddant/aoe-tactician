@@ -39,8 +39,8 @@ export const Navbar = () => {
 
                     <div className="flex items-center space-x-6">
                         <Link
-                            href="/"
-                            style={{ color: getLinkStyle("/unit-counters")}}
+                            href="/unit-page"
+                            style={{ color: getLinkStyle("/unit-page")}}
                             className="px-6"
                             >
                             Unit Counters
