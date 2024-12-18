@@ -5,7 +5,7 @@ import { Navbar } from "@/app/components/Navbar";
 export default async function UnitCounters() {
     return (
         <HydrateClient>
-            <div>
+            <div className="h-full w-full">
                 <Navbar />
                 <UnitSection />
             </div>

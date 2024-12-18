@@ -7,6 +7,11 @@ import { type Unit } from "@prisma/client";
 export const UnitSection = () => {
     const unitQuery = api.unit.getAll.useQuery<Unit[]>();
 
+    const scrollToSection = (id: string) => {
+        const element = document.getElementById(id)
+        element?.scrollIntoView({ behavior: "smooth"});
+    };
+
     if (unitQuery.isLoading) {
         return (
             <div className="my-8 flex items-center justify-center text-center text-2xl text-[#d1a756]">
@@ -35,10 +40,10 @@ export const UnitSection = () => {
                 customImage="/select-unit.png"
             />
             <div className="flex flex-row items-center justify-center gap-32 text-white">
-                <button className="rounded-3xl border-4 border-[#d1a756] px-[4rem] py-6">
+                <button onClick={() => scrollToSection('counters')} className="rounded-3xl border-4 border-[#d1a756] px-[4rem] py-6">
                     Counters
                 </button>
-                <button className="rounded-3xl border-4 border-[#d1a756] px-[4.5rem] py-6">
+                <button onClick={() => scrollToSection('guide')} className="rounded-3xl border-4 border-[#d1a756] px-[4.5rem] py-6">
                     Guide
                 </button>
             </div>
