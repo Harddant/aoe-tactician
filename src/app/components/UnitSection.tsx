@@ -1,7 +1,7 @@
 "use client";
 
 import { api } from "@/trpc/react";
-import { Picker } from "../components/Picker";
+import { Picker } from "./Picker";
 import { type Unit } from "@prisma/client";
 
 export const UnitSection = () => {
