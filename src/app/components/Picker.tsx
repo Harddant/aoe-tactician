@@ -9,6 +9,7 @@ interface PickerProps<T> {
     getItemLabel: (item: T) => string;
     getItemImage: (item: T) => string;
     onItemSelect: (item: T) => void;
+    customImage?: string;
 }
 
 export const Picker = <T,>({
@@ -18,6 +19,7 @@ export const Picker = <T,>({
        getItemLabel,
        getItemImage,
        onItemSelect,
+       customImage,
    }: PickerProps<T>) => {
     const [selectedItem, setSelectedItem] = useState<T | null>(null);
     const [isGridVisible, setIsGridVisible] = useState(false);
@@ -29,10 +31,15 @@ export const Picker = <T,>({
             </h2>
             <button onClick={() => setIsGridVisible(!isGridVisible)}>
                 <Image
-                    src={selectedItem ? getItemImage(selectedItem) : "/select-civ.jpg"}
+                    src={selectedItem
+                        ? getItemImage(selectedItem)
+                        : customImage ?? ""
+                    }
+
                     alt={selectedItem ? getItemLabel(selectedItem) : "Default Selector"}
                     width={150}
                     height={219}
+                    className="my-8"
                 />
             </button>
             {isGridVisible && (

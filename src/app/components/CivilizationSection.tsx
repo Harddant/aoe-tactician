@@ -7,6 +7,11 @@ import { type Civilization } from "@prisma/client";
 export const CivilizationSection = () => {
   const civilizationQuery = api.civilization.getAll.useQuery<Civilization[]>();
 
+    const scrollToSection = (id: string) => {
+        const element = document.getElementById(id)
+        element?.scrollIntoView({ behavior: "smooth"});
+    };
+
   if (civilizationQuery.isLoading) {
     return (
       <div className="my-8 flex items-center justify-center text-center text-2xl text-[#d1a756]">
@@ -30,14 +35,15 @@ export const CivilizationSection = () => {
         data={civilizationQuery.data ?? []}
         getItemKey={(civ) => civ.id.toString()}
         getItemLabel={(civ) => civ.name}
-        getItemImage={(civ) => civ.logo || "/default-civ-logo.jpg"}
+        getItemImage={(civ) => civ.logo || "/Chinese_AoE2.png"}
         onItemSelect={(civ) => (civ)}
+        customImage="/select-civ.jpg"
       />
       <div className="flex flex-row items-center justify-center gap-32 text-white">
-        <button className="rounded-3xl border-4 border-[#d1a756] px-[4rem] py-6">
+        <button onClick={() => scrollToSection ('counters')} className="rounded-3xl border-4 border-[#d1a756] px-[4rem] py-6">
             Counters
         </button>
-        <button className="rounded-3xl border-4 border-[#d1a756] px-[4.5rem] py-6">
+        <button onClick={() => scrollToSection('guide')} className="rounded-3xl border-4 border-[#d1a756] px-[4.5rem] py-6">
            Guide
         </button>
       </div>
