@@ -2,7 +2,7 @@
 
 import { api } from "@/trpc/react";
 import { Picker } from "../components/Picker";
-import { Unit } from "@prisma/client";
+import { type Unit } from "@prisma/client";
 
 export const UnitSection = () => {
     const unitQuery = api.unit.getAll.useQuery<Unit[]>();
@@ -30,8 +30,9 @@ export const UnitSection = () => {
                 data={unitQuery.data ?? []}
                 getItemKey={(unit) => unit.id.toString()}
                 getItemLabel={(unit) => unit.name}
-                getItemImage={(unit) => unit.icon || "/default-civ-logo.jpg"}
+                getItemImage={(unit) => unit.icon || "/archer.png"}
                 onItemSelect={(unit) => (unit)}
+                customImage="/select-unit.png"
             />
             <div className="flex flex-row items-center justify-center gap-32 text-white">
                 <button className="rounded-3xl border-4 border-[#d1a756] px-[4rem] py-6">
