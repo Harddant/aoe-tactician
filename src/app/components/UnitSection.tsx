@@ -5,6 +5,7 @@ import { Picker } from "./Picker";
 import { type Unit } from "@prisma/client";
 
 export const UnitSection = () => {
+    // @ts-ignore
     const unitQuery = api.unit.getAll.useQuery<Unit[]>();
 
     const scrollToSection = (id: string) => {
@@ -40,10 +41,10 @@ export const UnitSection = () => {
                 customImage="/select-unit.png"
             />
             <div className="flex flex-row items-center justify-center gap-32 text-white">
-                <button onClick={() => scrollToSection('counters')} className="rounded-3xl border-4 border-[#d1a756] px-[4rem] py-6">
+                <button onClick={() => scrollToSection('unit-counters')} className="rounded-3xl border-4 border-[#d1a756] px-[4rem] py-6">
                     Counters
                 </button>
-                <button onClick={() => scrollToSection('guide')} className="rounded-3xl border-4 border-[#d1a756] px-[4.5rem] py-6">
+                <button onClick={() => scrollToSection('unit-guide')} className="rounded-3xl border-4 border-[#d1a756] px-[4.5rem] py-6">
                     Guide
                 </button>
             </div>

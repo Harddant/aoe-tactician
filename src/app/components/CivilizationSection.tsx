@@ -3,10 +3,18 @@
 import { api } from "@/trpc/react";
 import { Picker } from "./Picker";
 import { type Civilization } from "@prisma/client";
+import {useState} from "react";
 
-export const CivilizationSection = () => {
+
+export const CivilizationSection  = ({
+    selectedItem,
+    setSelectedItem
+}: {
+    selectedItem: Civilization | null
+    setSelectedItem: (newItem: Civilization | null) => void
+}) => {
   const civilizationQuery = api.civilization.getAll.useQuery<Civilization[]>();
-
+    const [selectedCiv, setSelectedCiv] = useState<Civilization | null>(null);
     const scrollToSection = (id: string) => {
         const element = document.getElementById(id)
         element?.scrollIntoView({ behavior: "smooth"});
@@ -36,14 +44,15 @@ export const CivilizationSection = () => {
         getItemKey={(civ) => civ.id.toString()}
         getItemLabel={(civ) => civ.name}
         getItemImage={(civ) => civ.logo || "/Chinese_AoE2.png"}
-        onItemSelect={(civ) => (civ)}
+        onItemSelect={(civ) => setSelectedCiv(civ)}
+        selectedItem={selectedCiv}
         customImage="/select-civ.jpg"
       />
       <div className="flex flex-row items-center justify-center gap-32 text-white">
-        <button onClick={() => scrollToSection ('counters')} className="rounded-3xl border-4 border-[#d1a756] px-[4rem] py-6">
+        <button onClick={() => scrollToSection ('civ-counters')} className="rounded-3xl border-4 border-[#d1a756] px-[4rem] py-6">
             Counters
         </button>
-        <button onClick={() => scrollToSection('guide')} className="rounded-3xl border-4 border-[#d1a756] px-[4.5rem] py-6">
+        <button onClick={() => scrollToSection('civ-guide')} className="rounded-3xl border-4 border-[#d1a756] px-[4.5rem] py-6">
            Guide
         </button>
       </div>
