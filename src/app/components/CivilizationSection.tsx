@@ -14,7 +14,6 @@ export const CivilizationSection  = ({
     setSelectedItem: (newItem: Civilization | null) => void
 }) => {
   const civilizationQuery = api.civilization.getAll.useQuery<Civilization[]>();
-    const [selectedCiv, setSelectedCiv] = useState<Civilization | null>(null);
     const scrollToSection = (id: string) => {
         const element = document.getElementById(id)
         element?.scrollIntoView({ behavior: "smooth"});
@@ -44,8 +43,8 @@ export const CivilizationSection  = ({
         getItemKey={(civ) => civ.id.toString()}
         getItemLabel={(civ) => civ.name}
         getItemImage={(civ) => civ.logo || "/Chinese_AoE2.png"}
-        onItemSelect={(civ) => setSelectedCiv(civ)}
-        selectedItem={selectedCiv}
+        onItemSelect={(civ) => setSelectedItem(civ)}
+        selectedItem={selectedItem}
         customImage="/select-civ.jpg"
       />
       <div className="flex flex-row items-center justify-center gap-32 text-white">

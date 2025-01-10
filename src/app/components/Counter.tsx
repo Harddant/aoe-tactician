@@ -5,29 +5,27 @@ import { type Civilization} from "@prisma/client";
 
 interface CounterProps<T> {
     title: string;
-    data: Civilization;
     getItemKey: (item: T) => string | number;
     getItemLabel: (item: T) => string;
     getItemImage: (item: T) => string;
     onItemSelect: (item: T) => void;
     selectedItem: T | null;
-    // goodAgainst: T[] | undefined;
-    // badAgainst: T[] | undefined;
-    // synergies: T[] | undefined;
+    goodAgainst: T[] | undefined;
+    badAgainst: T[] | undefined;
+    synergies: T[] | undefined;
     customImage?: string;
 }
 
 export const Counter = <T,>({
     title,
-    data,
     getItemKey,
     getItemLabel,
     getItemImage,
     onItemSelect,
     selectedItem,
-    // goodAgainst,
-    // badAgainst,
-    // synergies,
+    goodAgainst,
+    badAgainst,
+    synergies,
     customImage,
 }: CounterProps<T>) => {
     return (

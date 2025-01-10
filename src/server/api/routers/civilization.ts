@@ -85,8 +85,16 @@ export const civilizationRouter = createTRPCRouter({
             const civilization = await prisma.civilization.findUnique({
                 where: { id: input.civilizationId },
                 include: {
-                    counter_civilization_ones: true,
-                    counter_civilization_twos: true,
+                    counter_civilization_ones: {
+                        select: {
+                            civilization_two: true,
+                        },
+                    },
+                    counter_civilization_twos: {
+                        select: {
+                            civilization_one: true,
+                        },
+                    },
                 },
             });
 
@@ -94,8 +102,13 @@ export const civilizationRouter = createTRPCRouter({
                 throw new Error(`Civilization with ID ${input.civilizationId} not found`);
             }
 
+            const counters = [
+                ...civilization.counter_civilization_ones.map((relation) => relation.civilization_two),
+                ...civilization.counter_civilization_twos.map((relation) => relation.civilization_one),
+            ];
+
             return {
-                counters: [...civilization.counter_civilization_ones, ...civilization.counter_civilization_twos],
+                counters,
             };
         }),
 
@@ -108,10 +121,18 @@ export const civilizationRouter = createTRPCRouter({
         )
         .query(async ({ input }) => {
             const civilization = await prisma.civilization.findUnique({
-                where: { id: input.civilizationId },
-                include: {
-                    synergy_civilization_ones: true,
-                    synergy_civilization_twos: true,
+                            where: { id: input.civilizationId },
+                            include: {
+                                counter_civilization_ones: {
+                                    select: {
+                            civilization_two: true,
+                        },
+                    },
+                    counter_civilization_twos: {
+                        select: {
+                            civilization_one: true,
+                        },
+                    },
                 },
             });
 
@@ -119,8 +140,13 @@ export const civilizationRouter = createTRPCRouter({
                 throw new Error(`Civilization with ID ${input.civilizationId} not found`);
             }
 
+            const synergies = [
+                ...civilization.counter_civilization_ones.map((relation) => relation.civilization_two),
+                ...civilization.counter_civilization_twos.map((relation) => relation.civilization_one),
+            ];
+
             return {
-                counters: [...civilization.synergy_civilization_ones, ...civilization.synergy_civilization_twos],
+                synergies,
             };
         }),
 
@@ -135,8 +161,16 @@ export const civilizationRouter = createTRPCRouter({
             const civilization = await prisma.civilization.findUnique({
                 where: { id: input.civilizationId },
                 include: {
-                    effective_civilization_ones: true,
-                    effective_civilization_twos: true,
+                    counter_civilization_ones: {
+                        select: {
+                            civilization_two: true,
+                        },
+                    },
+                    counter_civilization_twos: {
+                        select: {
+                            civilization_one: true,
+                        },
+                    },
                 },
             });
 
@@ -144,8 +178,13 @@ export const civilizationRouter = createTRPCRouter({
                 throw new Error(`Civilization with ID ${input.civilizationId} not found`);
             }
 
+            const effectives = [
+                ...civilization.counter_civilization_ones.map((relation) => relation.civilization_two),
+                ...civilization.counter_civilization_twos.map((relation) => relation.civilization_one),
+            ];
+
             return {
-                counters: [...civilization.effective_civilization_ones, ...civilization.effective_civilization_twos],
+                effectives,
             };
         }),
 
