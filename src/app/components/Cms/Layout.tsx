@@ -8,10 +8,10 @@ import { Main } from "@/app/components/Cms/Main";
 
 export const Layout = () => {
     const [currentModelType, setCurrentModelType] = useState<number>(0);
-    const [currentModel, setCurrentModel] = useState<number|null>(null);
+    const [currentModelId, setCurrentModelId] = useState<number|null>(null);
 
     useEffect(() => {
-        setCurrentModel(null);
+        setCurrentModelId(null);
     }, [currentModelType]);
 
     const ageQuery = api.age.getAll.useQuery();
@@ -36,7 +36,7 @@ export const Layout = () => {
     return (
         <div className={`flex flex-row w-[100vw]`}>
             <Sidebar currentModelType={currentModelType} setCurrentModelType={setCurrentModelType} models={modelTypes} />
-            <Main modelType={modelTypes[currentModelType] ?? ""} models={models} currentModel={currentModel} setCurrentModel={setCurrentModel} />
+            <Main modelType={modelTypes[currentModelType] ?? ""} models={models} currentModelId={currentModelId} setCurrentModelId={setCurrentModelId} />
         </div>
     );
 };
