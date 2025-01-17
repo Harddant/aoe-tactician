@@ -5,7 +5,6 @@ import { Picker } from "./Picker";
 import { type Unit } from "@prisma/client";
 
 export const UnitSection = () => {
-    // @ts-ignore
     const unitQuery = api.unit.getAll.useQuery<Unit[]>();
 
     const scrollToSection = (id: string) => {

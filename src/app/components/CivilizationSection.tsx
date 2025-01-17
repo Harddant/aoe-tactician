@@ -3,7 +3,6 @@
 import { api } from "@/trpc/react";
 import { Picker } from "./Picker";
 import { type Civilization } from "@prisma/client";
-import {useState} from "react";
 
 
 export const CivilizationSection  = ({
@@ -42,7 +41,7 @@ export const CivilizationSection  = ({
         data={civilizationQuery.data ?? []}
         getItemKey={(civ) => civ.id.toString()}
         getItemLabel={(civ) => civ.name}
-        getItemImage={(civ) => civ.logo || "/Chinese_AoE2.png"}
+        getItemImage={(civ) => civ.logo}
         onItemSelect={(civ) => setSelectedItem(civ)}
         selectedItem={selectedItem}
         customImage="/select-civ.jpg"
