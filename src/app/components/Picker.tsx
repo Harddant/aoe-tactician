@@ -9,6 +9,7 @@ interface PickerProps<T> {
     getItemLabel: (item: T) => string;
     getItemImage: (item: T) => string;
     onItemSelect: (item: T) => void;
+    selectedItem: T | null;
     customImage?: string;
 }
 

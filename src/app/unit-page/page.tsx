@@ -1,14 +1,10 @@
 import { HydrateClient } from "@/trpc/server";
-import { UnitSection } from "@/app/components/UnitSection"
-import { Navbar } from "@/app/components/Navbar";
+import { UnitWrapper } from "@/app/components/UnitWrapper";
 
-export default async function UnitCounters() {
+export default async function UnitCounter() {
     return (
         <HydrateClient>
-            <div className="h-full w-full">
-                <Navbar />
-                <UnitSection />
-            </div>
+            <UnitWrapper />
         </HydrateClient>
     );
 }

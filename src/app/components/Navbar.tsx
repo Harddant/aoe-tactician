@@ -47,7 +47,7 @@ export const Navbar = () => {
                          </Link>
                         <div className="flex flex-wrap">
                             <Link
-                                href="https://www.ageofempires.com/news/age-of-empires-iv-patch-12-1-2454/"
+                                href="https://www.ageofempires.com/news/category/releases/"
                                 target="_blank"
                                 className="pr-2 pl-16 hover:text-[#d1a756]"
                                 >
