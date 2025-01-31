@@ -11,7 +11,7 @@ export const UnitSection  = ({
     selectedItem: Unit | null
     setSelectedItem: (newItem: Unit | null) => void
 }) => {
-    const unitQuery = api.civilization.getAll.useQuery<Unit[]>();
+    const unitQuery = api.unit.getAll.useQuery<Unit[]>();
     const scrollToSection = (id: string) => {
         const element = document.getElementById(id)
         element?.scrollIntoView({ behavior: "smooth"});

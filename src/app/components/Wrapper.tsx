@@ -20,9 +20,15 @@ export const Wrapper = () => {
             {selectedItem && (
                 <section id="civ-counters" className="h-screen w-full">
                     <CounterCiv selectedItem={selectedItem} setSelectedItem={setSelectedItem}/>
-                    <GuideCiv selectedItem={selectedItem} setSelectedItem={setSelectedItem}/> 
                 </section>
             )}
+
+            {selectedItem && (
+                <section id="civ-guide" className="h-screen w-full">
+                    <GuideCiv selectedItem={selectedItem}/>
+                </section>
+            )}
+
         </div>
     )
 }
