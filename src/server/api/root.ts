@@ -2,6 +2,7 @@ import { createCallerFactory, createTRPCRouter } from "@/server/api/trpc";
 import { civilizationRouter } from "@/server/api/routers/civilization";
 import { unitRouter } from "@/server/api/routers/unit";
 import { ageRouter } from "@/server/api/routers/age";
+import {schemaRouter} from "@/server/api/routers/schema";
 
 /**
  * This is the primary router for your server.
@@ -12,6 +13,7 @@ export const appRouter = createTRPCRouter({
   civilization: civilizationRouter,
   unit: unitRouter,
   age: ageRouter,
+  schema: schemaRouter,
 });
 
 // export type definition of API
