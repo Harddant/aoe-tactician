@@ -208,6 +208,8 @@ export const civilizationRouter = createTRPCRouter({
                     unique_units: true,
                     unique_technologies: true,
                     unique_buildings: true,
+                    team_bonuses: true,
+                    civilization_bonuses: true,
                 },
             });
 

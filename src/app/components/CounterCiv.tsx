@@ -2,7 +2,7 @@
 
 import { Counter } from "./Counter"
 import { type Civilization } from "@prisma/client";
-import {api} from "@/trpc/react";
+import { api } from "@/trpc/react";
 
 
 export const CounterCiv = ({
