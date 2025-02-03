@@ -69,12 +69,7 @@ export const unitRouter = createTRPCRouter({
 
     // Get all Units
     getAll: publicProcedure.query(async () => {
-        return prisma.unit.findMany({
-            include: {
-                unit_type: true,
-                age: true,
-            },
-        });
+        return prisma.unit.findMany();
     }),
 
     // Update a Unit by ID
@@ -134,20 +129,33 @@ export const unitRouter = createTRPCRouter({
             })
         )
         .query(async ({ input }) => {
-            const civilization = await prisma.unit.findUnique({
+            const unit = await prisma.unit.findUnique({
                 where: { id: input.unitId },
                 include: {
-                    counter_unit_ones: true,
-                    counter_unit_twos: true,
+                    counter_unit_ones: {
+                        select: {
+                            unit_two: true,
+                        },
+                    },
+                    counter_unit_twos: {
+                        select: {
+                            unit_one: true,
+                        },
+                    },
                 },
             });
 
-            if (!civilization) {
+            if (!unit) {
                 throw new Error(`Civilization with ID ${input.unitId} not found`);
             }
 
+            const counters = [
+                ...unit.counter_unit_ones.map((relation) => relation.unit_two),
+                ...unit.counter_unit_twos.map((relation) => relation.unit_one),
+            ];
+
             return {
-                counters: [...civilization.counter_unit_ones, ...civilization.counter_unit_twos],
+                counters,
             };
         }),
 
@@ -159,20 +167,33 @@ export const unitRouter = createTRPCRouter({
             })
         )
         .query(async ({ input }) => {
-            const civilization = await prisma.unit.findUnique({
+            const unit = await prisma.unit.findUnique({
                 where: { id: input.unitId },
                 include: {
-                    synergy_unit_ones: true,
-                    synergy_unit_twos: true,
+                    counter_unit_ones: {
+                        select: {
+                            unit_two: true,
+                        },
+                    },
+                    counter_unit_twos: {
+                        select: {
+                            unit_one: true,
+                        },
+                    },
                 },
             });
 
-            if (!civilization) {
+            if (!unit) {
                 throw new Error(`Civilization with ID ${input.unitId} not found`);
             }
 
+            const synergies = [
+                ...unit.counter_unit_ones.map((relation) => relation.unit_two),
+                ...unit.counter_unit_twos.map((relation) => relation.unit_one),
+            ];
+
             return {
-                counters: [...civilization.synergy_unit_ones, ...civilization.synergy_unit_twos],
+                synergies,
             };
         }),
 
@@ -184,11 +205,58 @@ export const unitRouter = createTRPCRouter({
             })
         )
         .query(async ({ input }) => {
+            const unit = await prisma.unit.findUnique({
+                where: { id: input.unitId },
+                include: {
+                    counter_unit_ones: {
+                        select: {
+                            unit_two: true,
+                        },
+                    },
+                    counter_unit_twos: {
+                        select: {
+                            unit_one: true,
+                        },
+                    },
+                },
+            });
+
+            if (!unit) {
+                throw new Error(`Civilization with ID ${input.unitId} not found`);
+            }
+
+            const effectives = [
+                ...unit.counter_unit_ones.map((relation) => relation.unit_two),
+                ...unit.counter_unit_twos.map((relation) => relation.unit_one),
+            ];
+
+            return {
+                effectives,
+            };
+        }),
+
+    // All Civilization Details by ID
+    getUnitDetails: publicProcedure
+        .input(
+            z.object({
+                unitId: z.number(),
+            })
+        )
+        .query(async ({ input }) => {
             const civilization = await prisma.unit.findUnique({
                 where: { id: input.unitId },
                 include: {
                     effective_unit_ones: true,
                     effective_unit_twos: true,
+                    synergy_unit_ones: true,
+                    synergy_unit_twos: true,
+                    counter_unit_ones: true,
+                    counter_unit_twos: true,
+                    parent_unit: true,
+                    child_units: true,
+                    composition_unit: true,
+                    unit_type: true,
+                    age: true,
                 },
             });
 
@@ -197,7 +265,10 @@ export const unitRouter = createTRPCRouter({
             }
 
             return {
-                counters: [...civilization.effective_unit_ones, ...civilization.effective_unit_twos],
+                ...civilization,
+                counters: [...civilization.counter_unit_ones, ...civilization.counter_unit_twos],
+                effectives: [...civilization.effective_unit_ones, ...civilization.effective_unit_twos],
+                synergies: [...civilization.synergy_unit_ones, ...civilization.synergy_unit_twos],
             };
         }),
 
@@ -205,12 +276,12 @@ export const unitRouter = createTRPCRouter({
     getByIdWithDetails: publicProcedure
         .input(
             z.object({
-                id: z.number(),
+                unitId: z.number(),
             })
         )
         .query(async ({ input }) => {
             const unit = await prisma.unit.findUnique({
-                where: { id: input.id },
+                where: { id: input.unitId },
                 include: {
                     unit_type: true,
                     age: true,
@@ -252,7 +323,7 @@ export const unitRouter = createTRPCRouter({
             });
 
             if (!unit) {
-                throw new Error(`Unit with ID ${input.id} not found`);
+                throw new Error(`Unit with ID ${input.unitId} not found`);
             }
 
             // Optional: Format or aggregate data as needed

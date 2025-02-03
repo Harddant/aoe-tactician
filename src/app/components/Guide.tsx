@@ -14,7 +14,8 @@ export const Guide = <T,>({
 }: GuideProps<T>) => {
     const civ = civDetails ? civDetails() : null;
     const unit = unitDetails ? unitDetails() : null;
-
+    console.log("Civ: ", civ);
+    console.log("Unit: ", unit);
     return (
         <>
             {civ && (
