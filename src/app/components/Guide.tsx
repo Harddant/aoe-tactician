@@ -128,6 +128,21 @@ export const Guide = <T,>({
                     </div>
                 </>
             )}
+            <h2 className="mx-8 my-4 text-2xl font-bold text-[#ffffff]">
+                Team Bonuses
+            </h2>
+            <div className="container flex flex-row mx-8">
+                <ul className="list-none space-y-2 text-[#ffffff]">
+                    <li className="flex">
+                        <span className="mr-2 text-[#d1a756]">•</span>
+                        <span>Transport Ships have +5 Line of Sight and cost -50%.</span>
+                    </li>
+                </ul>
+            </div>
+
+            <h2 className="mx-8 my-4 text-2xl font-bold text-[#ffffff]">
+                End-Game Composition
+            </h2>
             {unitDetails && <div></div>}
         </>
     );
