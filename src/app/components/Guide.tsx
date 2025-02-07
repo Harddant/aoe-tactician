@@ -1,6 +1,8 @@
-import Image from "next/image";
-import { inferProcedureOutput } from "@trpc/server";
-import { AppRouter } from "@/server/api/root";
+import { type inferProcedureOutput } from "@trpc/server";
+import { type AppRouter } from "@/server/api/root";
+import { TextImage } from "@/app/components/TextImage";
+import {InfoImage} from "@/app/components/InfoImage";
+import {ListItem} from "@/app/components/ListItem";
 
 interface GuideProps<T> {
     civDetails?: () => inferProcedureOutput<AppRouter["civilization"]["getCivilizationDetails"]>;
@@ -30,27 +32,15 @@ export const Guide = <T,>({
                                 Unique Unit(s)
                             </h2>
                             {civ.unique_units.map((unit, index) => (
-                                <div key={index} className="container my-6 flex flex-row">
-                                    <Image
-                                        src="/archer.png"
-                                        alt="Placeholder image"
-                                        width={60}
-                                        height={40}
-                                        className="mx-8"
-                                    />
-                                    <div className="flex items-start">
-                                        <h3 className="mx-2 whitespace-nowrap text-[#fada8b]">
-                                            Unique Unit:
-                                        </h3>
-                                        <p className="max-w-prose text-[#ffffff]">
-                                            Lorem ipsum dolor sit amet. Aut veritatis impedit et porro
-                                            minima qui illo sint. Est consectetur dolorem in itaque
-                                            voluptate quo doloremque harum. Et ratione atque ea quidem
-                                            illo et officiis consequatur. Non earum reiciendis ut sint
-                                            Quis aut voluptas laborum.
-                                        </p>
-                                    </div>
-                                </div>
+                                <InfoImage
+                                    key={index}
+                                    text={"unique unit" + ":"}
+                                    imagePath={""}
+                                    description={"Lorem ipsum dolor sit amet. Aut veritatis impedit et porro minima qui" +
+                                        " illosint. Estconsectetur dolorem in itaquevoluptate quo doloremque harum. Et" +
+                                        " ratione atque eaquidem illo et officiis consequatur. Non earum reiciendis ut" +
+                                        " sint Quis aut voluptas laborum."}
+                                />
                             ))}
                         </>
                     )}
@@ -61,27 +51,15 @@ export const Guide = <T,>({
                                 Unique Building(s)
                             </h2>
                             {civ.unique_buildings.map((building, index) => (
-                                <div key={index} className="container flex flex-row">
-                                    <Image
-                                        src="/archer.png"
-                                        alt="Placeholder image"
-                                        width={60}
-                                        height={40}
-                                        className="mx-8"
-                                    />
-                                    <div className="flex items-start">
-                                        <h3 className="mx-2 whitespace-nowrap text-[#fada8b]">
-                                            Unique Building:
-                                        </h3>
-                                        <p className="max-w-prose text-[#ffffff]">
-                                            Lorem ipsum dolor sit amet. Aut veritatis impedit et porro
-                                            minima qui illo sint. Est consectetur dolorem in itaque
-                                            voluptate quo doloremque harum. Et ratione atque ea quidem
-                                            illo et officiis consequatur. Non earum reiciendis ut sint
-                                            Quis aut voluptas laborum.
-                                        </p>
-                                    </div>
-                                </div>
+                                <InfoImage
+                                    key={index}
+                                    text={"unique Buildings" + ":"}
+                                    imagePath={""}
+                                    description={"Lorem ipsum dolor sit amet. Aut veritatis impedit et porro minima qui" +
+                                        " illosint. Estconsectetur dolorem in itaquevoluptate quo doloremque harum. Et" +
+                                        " ratione atque eaquidem illo et officiis consequatur. Non earum reiciendis ut" +
+                                        " sint Quis aut voluptas laborum."}
+                                />
                             ))}
                         </>
                     )}
@@ -92,59 +70,92 @@ export const Guide = <T,>({
                                 Unique Technologies
                             </h2>
                             {civ.unique_technologies.map((technology, index) => (
-                                <div key={index} className="container flex flex-row">
-                                    <Image
-                                        src="/archer.png"
-                                        alt="Placeholder image"
-                                        width={60}
-                                        height={40}
-                                        className="mx-8"
-                                    />
-                                    <div className="flex items-start">
-                                        <h3 className="mx-2 whitespace-nowrap text-[#fada8b]">
-                                            Unique Technologies:
-                                        </h3>
-                                        <p className="max-w-prose text-[#ffffff]">
-                                            Lorem ipsum dolor sit amet. Aut veritatis impedit et porro
-                                            minima qui illo sint. Est consectetur dolorem in itaque
-                                            voluptate quo doloremque harum. Et ratione atque ea quidem
-                                            illo et officiis consequatur. Non earum reiciendis ut sint
-                                            Quis aut voluptas laborum.
-                                        </p>
-                                    </div>
-                                </div>
+                                <InfoImage
+                                    key={index}
+                                    text={"unique technologies" + ":"}
+                                    imagePath={""}
+                                    description={"Lorem ipsum dolor sit amet. Aut veritatis impedit et porro minima qui" +
+                                        " illosint. Estconsectetur dolorem in itaquevoluptate quo doloremque harum. Et" +
+                                        " ratione atque eaquidem illo et officiis consequatur. Non earum reiciendis ut" +
+                                        " sint Quis aut voluptas laborum."}
+                                />
                             ))}
                         </>
                     )}
-                    <h2 className="mx-8 my-4 text-2xl font-bold text-[#ffffff]">
-                        Civilization Bonuses
-                    </h2>
-                    <div className="container flex flex-row mx-8">
-                        <ul className="list-none space-y-2 text-[#ffffff]">
-                            <li className="flex">
-                                <span className="mr-2 text-[#d1a756]">•</span>
-                                <span>Start with +100 stone.</span>
-                            </li>
-                        </ul>
-                    </div>
+
+                    {civ.civilization_bonuses.length > 0 && (
+                        <>
+                            <h2 className="mx-8 my-4 text-2xl font-bold text-[#ffffff]">
+                                Civilization Bonuses
+                            </h2>
+                                <div className="container flex flex-row mx-8">
+                                    <ul className="list-none space-y-2 text-[#ffffff]">
+                                        {civ.civilization_bonuses.map((bonus, index) => (
+                                            <ListItem text={bonus.name} key={index} />
+                                        ))}
+                                    </ul>
+                                </div>
+                        </>
+                    )}
+
+                    {civ.team_bonuses.length > 0 && (
+                        <>
+                            <h2 className="mx-8 my-4 text-2xl font-bold text-[#ffffff]">
+                                Team Bonuses
+                            </h2>
+
+                                <div className="container flex flex-row mx-8">
+                                    <ul className="list-none space-y-2 text-[#ffffff]">
+                                        {civ.team_bonuses.map((teamBonus, index) => (
+                                            <ListItem text={teamBonus.name} key={index} />
+                                        ))}
+                                    </ul>
+                                </div>
+
+                        </>
+                    )}
                 </>
             )}
-            <h2 className="mx-8 my-4 text-2xl font-bold text-[#ffffff]">
-                Team Bonuses
-            </h2>
-            <div className="container flex flex-row mx-8">
-                <ul className="list-none space-y-2 text-[#ffffff]">
-                    <li className="flex">
-                        <span className="mr-2 text-[#d1a756]">•</span>
-                        <span>Transport Ships have +5 Line of Sight and cost -50%.</span>
-                    </li>
-                </ul>
-            </div>
 
-            <h2 className="mx-8 my-4 text-2xl font-bold text-[#ffffff]">
-                End-Game Composition
-            </h2>
-            {unitDetails && <div></div>}
+            {unit && (
+                <>
+                    <h1 className="flex justify-center py-4 text-4xl text-[#d1a756]">
+                        Guide
+                    </h1>
+                    <>
+                        <h2 className="mx-8 my-4 text-2xl font-bold text-[#ffffff]">
+                            Unit Information
+                        </h2>
+                        <div className="flex flex-row space-x-6 mx-8">
+                            <TextImage text={unit.unit_type.type} imagePath={unit.unit_type.type}/>
+                            <TextImage text={"all civs"} imagePath={unit.unit_type.type}/>
+                            <TextImage text={unit.age.name} imagePath={unit.age.icon}/>
+                        </div>
+                        <h2 className="mx-8 my-4 text-2xl font-bold text-[#ffffff]">
+                            Training
+                        </h2>
+                        <div className="flex flex-row space-x-6 mx-8">
+                            <TextImage text={unit.train_food.toString()} imagePath={unit.unit_type.type}/>
+                            <TextImage text={unit.train_wood.toString()} imagePath={unit.unit_type.type}/>
+                            <TextImage text={unit.train_gold.toString()} imagePath={unit.age.icon}/>
+                            <TextImage text={unit.train_time.toString() + "s"} imagePath={unit.unit_type.type}/>
+                            {/*TODO: Karlos fix backend ;)*/}
+                        </div>
+                        <h2 className="mx-8 my-4 text-2xl font-bold text-[#ffffff]">
+                            Statistics
+                        </h2>
+                        <div className="flex flex-row space-x-6 mx-8">
+                            <TextImage text={unit.hp.toString()} imagePath={unit.unit_type.type}/>
+                            <TextImage text={unit.attack.toString()} imagePath={unit.unit_type.type}/>
+                            <TextImage text={unit.armour.toString()} imagePath={unit.age.icon}/>
+                            <TextImage text={unit.pierce.toString()} imagePath={unit.unit_type.type}/>
+                            <TextImage text={unit.speed.toString()} imagePath={unit.age.icon}/>
+                            <TextImage text={unit.line_of_site.toString()} imagePath={unit.age.icon}/>
+                            {/*TODO: Attack type for pierce & melee, change 'site' to 'sight' ;)*/}
+                        </div>
+                    </>
+                </>
+            )}
         </>
     );
 }

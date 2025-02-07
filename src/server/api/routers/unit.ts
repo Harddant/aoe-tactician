@@ -243,7 +243,7 @@ export const unitRouter = createTRPCRouter({
             })
         )
         .query(async ({ input }) => {
-            const civilization = await prisma.unit.findUnique({
+            const unit = await prisma.unit.findUnique({
                 where: { id: input.unitId },
                 include: {
                     effective_unit_ones: true,
@@ -260,15 +260,15 @@ export const unitRouter = createTRPCRouter({
                 },
             });
 
-            if (!civilization) {
+            if (!unit) {
                 throw new Error(`Civilization with ID ${input.unitId} not found`);
             }
 
             return {
-                ...civilization,
-                counters: [...civilization.counter_unit_ones, ...civilization.counter_unit_twos],
-                effectives: [...civilization.effective_unit_ones, ...civilization.effective_unit_twos],
-                synergies: [...civilization.synergy_unit_ones, ...civilization.synergy_unit_twos],
+                ...unit,
+                counters: [...unit.counter_unit_ones, ...unit.counter_unit_twos],
+                effectives: [...unit.effective_unit_ones, ...unit.effective_unit_twos],
+                synergies: [...unit.synergy_unit_ones, ...unit.synergy_unit_twos],
             };
         }),
 
