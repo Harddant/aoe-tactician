@@ -235,7 +235,7 @@ export const unitRouter = createTRPCRouter({
             };
         }),
 
-    // All Civilization Details by ID
+    // All Unit Details by ID
     getUnitDetails: publicProcedure
         .input(
             z.object({
@@ -261,7 +261,7 @@ export const unitRouter = createTRPCRouter({
             });
 
             if (!unit) {
-                throw new Error(`Civilization with ID ${input.unitId} not found`);
+                throw new Error(`Unit with ID ${input.unitId} not found`);
             }
 
             return {
@@ -270,6 +270,27 @@ export const unitRouter = createTRPCRouter({
                 effectives: [...unit.effective_unit_ones, ...unit.effective_unit_twos],
                 synergies: [...unit.synergy_unit_ones, ...unit.synergy_unit_twos],
             };
+        }),
+
+    // Get a Unit by ID
+    getByParentId: publicProcedure
+        .input(
+            z.object({
+                parentId: z.number(),
+            })
+        )
+        .query(async ({ input }) => {
+            const unit = await prisma.unit.findFirst({
+                where: { parent_unit_id: input.parentId },
+                include: {
+                    parent_unit: true,
+                    child_units: true,
+                },
+            });
+            if (!unit) {
+                throw new Error(`Unit with Parent ID ${input.parentId} not found`);
+            }
+            return unit;
         }),
 
     // All Unit Details by ID

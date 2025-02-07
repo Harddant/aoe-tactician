@@ -5,18 +5,15 @@ import { Picker } from "./Picker";
 import { type Civilization } from "@prisma/client";
 
 
-export const CivilizationSection  = ({
-    selectedItem,
-    setSelectedItem
-}: {
+export const CivilizationSection  = ({selectedItem, setSelectedItem}: {
     selectedItem: Civilization | null
     setSelectedItem: (newItem: Civilization | null) => void
 }) => {
   const civilizationQuery = api.civilization.getAll.useQuery<Civilization[]>();
-    const scrollToSection = (id: string) => {
-        const element = document.getElementById(id)
-        element?.scrollIntoView({ behavior: "smooth"});
-    };
+  const scrollToSection = (id: string) => {
+      const element = document.getElementById(id);
+      element?.scrollIntoView({ behavior: "smooth"});
+  };
 
   if (civilizationQuery.isLoading) {
     return (

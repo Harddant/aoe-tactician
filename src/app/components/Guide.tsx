@@ -7,7 +7,6 @@ import {ListItem} from "@/app/components/ListItem";
 interface GuideProps<T> {
     civDetails?: () => inferProcedureOutput<AppRouter["civilization"]["getCivilizationDetails"]>;
     unitDetails?: () => inferProcedureOutput<AppRouter["unit"]["getUnitDetails"]>;
-
 }
 
 export const Guide = <T,>({
