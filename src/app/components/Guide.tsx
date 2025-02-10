@@ -129,7 +129,7 @@ export const Guide = <T,>({
                         Guide
                     </h1>
                     <>
-                        <h2 className="mx-8 my-4 text-2xl font-bold text-white">
+                        <h2 className="mx-8 my-12 text-2xl font-bold text-white">
                             Unit Information
                         </h2>
                         <div className="flex flex-row space-x-6 mx-8">
@@ -137,7 +137,7 @@ export const Guide = <T,>({
                             <TextImage text={"all civs"} imagePath={unit.unit_type.type}/>
                             <TextImage text={unit.age.name} imagePath={unit.age.icon}/>
                         </div>
-                        <h2 className="mx-8 my-4 text-2xl font-bold text-white">
+                        <h2 className="mx-8 my-12 text-2xl font-bold text-white">
                             Training
                         </h2>
                         <div className="flex flex-row space-x-6 mx-8">
@@ -147,10 +147,10 @@ export const Guide = <T,>({
                             <TextImage text={unit.train_time.toString() + "s"} imagePath={unit.unit_type.type}/>
                             {/*TODO: Karlos fix backend ;)*/}
                         </div>
-                        <h2 className="mx-8 my-4 text-2xl font-bold text-white">
+                        <h2 className="mx-8 my-12 text-2xl font-bold text-white">
                             Statistics
                         </h2>
-                        <div className="flex flex-row space-x-6 mx-8">
+                        <div className="flex flex-row space-x-6 mx-8 my-4">
                             <TextImage text={unit.hp.toString()} imagePath={unit.unit_type.type}/>
                             <TextImage text={unit.attack.toString()} imagePath={unit.unit_type.type}/>
                             <TextImage text={unit.armour.toString()} imagePath={unit.age.icon}/>
@@ -159,6 +159,9 @@ export const Guide = <T,>({
                             <TextImage text={unit.line_of_site.toString()} imagePath={unit.age.icon}/>
                             {/*TODO: Attack type for pierce & melee, change 'site' to 'sight' ;)*/}
                         </div>
+                        <h2 className="mx-8 my-12 text-2xl font-bold text-white">
+                            Hierarchy
+                        </h2>
                         <UnitHierarchy unitId={unit.id} />
                     </>
                 </>

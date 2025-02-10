@@ -26,6 +26,6 @@ export const UnitHierarchy = ({ unitId }: UnitHierarchyProps) => {
     }
 
     return (
-        <Hierarchy hierarchy={hierarchy} />
+        <Hierarchy hierarchy={hierarchy} type={"unit"} />
     );
 };

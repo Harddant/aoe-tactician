@@ -52,7 +52,7 @@ export const Counter = <T,>({
                 alt="checkmark"
                 width={20}
                 height={20}
-                className="dark:invert"
+                className="invert"
               />
               <h2 className="mx-8 text-3xl font-semibold">Good Against</h2>
               <Image

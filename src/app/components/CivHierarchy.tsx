@@ -26,6 +26,6 @@ export const CivCompHierarchy = ({ civId }: CivCompHierarchyProps) => {
     }
 
     return (
-        <Hierarchy hierarchy={hierarchy} />
+        <Hierarchy hierarchy={hierarchy} type={"civ"} />
     );
 };

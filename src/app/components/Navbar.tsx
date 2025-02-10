@@ -53,7 +53,7 @@ export const Navbar = () => {
                                 >
                                 Patch Notes
                             </Link>
-                            <Image className="dark:invert -rotate-[32deg] mr-16"
+                            <Image className="invert -rotate-[32deg] mr-16"
                                    src="/right-arrow.svg"
                                    width={10}
                                    height={20}
