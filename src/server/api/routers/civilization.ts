@@ -44,6 +44,37 @@ export const civilizationRouter = createTRPCRouter({
         return prisma.civilization.findMany();
     }),
 
+    // Get all composition units for a civilization and format into an array
+    getCompositionUnits: publicProcedure
+        .input(
+            z.object({
+                civId: z.number(),
+            })
+        )
+        .query(async ({ input }) => {
+            const { civId } = input;
+
+            const civilization = await prisma.civilization.findUnique({
+                where: { id: civId },
+                include: {
+                    composition_units: {
+                        include: {
+                            unit: true,
+                        },
+                    },
+                },
+            });
+
+            if (!civilization) {
+                throw new Error(`Civilization with ID ${civId} not found`);
+            }
+
+            return civilization.composition_units.map((unit) => ({
+                model: unit.unit,
+                isCurrent: false,
+            }));
+        }),
+
     // Update a Civilization by ID
     update: publicProcedure
         .input(

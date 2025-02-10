@@ -1,6 +1,7 @@
 import {z} from "zod";
 import {createTRPCRouter, publicProcedure} from "@/server/api/trpc";
 import {db as prisma} from "../../db"
+import {Unit} from "@prisma/client";
 
 export const unitRouter = createTRPCRouter({
     // Create a new Unit
@@ -272,7 +273,7 @@ export const unitRouter = createTRPCRouter({
             };
         }),
 
-    // Get a Unit by ID
+    // Get a Unit by Parent ID
     getByParentId: publicProcedure
         .input(
             z.object({
@@ -291,6 +292,51 @@ export const unitRouter = createTRPCRouter({
                 throw new Error(`Unit with Parent ID ${input.parentId} not found`);
             }
             return unit;
+        }),
+
+    // Get the full hierarchy for a unit
+    getHierarchy: publicProcedure
+        .input(
+            z.object({
+                unitId: z.number(),
+            })
+        )
+        .query(async ({ input }) => {
+            const { unitId } = input;
+
+            const currentUnit = await prisma.unit.findUnique({
+                where: { id: unitId },
+            });
+
+            if (!currentUnit) {
+                throw new Error(`Unit with ID ${unitId} not found`);
+            }
+
+            const hierarchy: Array<{ model: Unit; isCurrent: boolean }> = [];
+            let unit: Unit|null = currentUnit;
+
+            while (unit) {
+                hierarchy.unshift({ model: unit, isCurrent: unit.id === unitId });
+                if (!unit.parent_unit_id) break;
+
+                unit = await prisma.unit.findUnique({
+                    where: { id: unit.parent_unit_id },
+                });
+            }
+
+            unit = currentUnit;
+            while (unit) {
+                const childUnit: Unit|null = await prisma.unit.findFirst({
+                    where: { parent_unit_id: unit.id },
+                });
+
+                if (!childUnit) break;
+
+                hierarchy.push({ model: childUnit, isCurrent: childUnit.id === unitId });
+                unit = childUnit;
+            }
+
+            return hierarchy;
         }),
 
     // All Unit Details by ID

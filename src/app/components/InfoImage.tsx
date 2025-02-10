@@ -21,7 +21,7 @@ export const InfoImage = ({text, imagePath, description}: InfoImageProps) => {
                 <h3 className="mx-2 whitespace-nowrap text-[#fada8b]">
                     {text}
                 </h3>
-                <p className="max-w-prose text-[#ffffff]">
+                <p className="max-w-prose text-white">
                     {description}
                 </p>
             </div>

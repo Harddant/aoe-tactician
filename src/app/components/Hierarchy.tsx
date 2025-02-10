@@ -1,27 +1,29 @@
 import Image from "next/image";
-import { type Unit } from "@prisma/client";
-import { api } from "@/trpc/react";
-import type {inferProcedureOutput} from "@trpc/server";
-import type {AppRouter} from "@/server/api/root";
+import {Civilization, Unit} from "@prisma/client";
 
 interface HierarchyProps {
-    unit: Unit;
+    hierarchy: Array<{ model: Unit|Civilization; isCurrent: boolean }>;
 }
 
-export const Hierarchy = ({ unit }: HierarchyProps) => {
-    let currentUnit = unit;
-    const childUnitQuery = api.unit.getByParentId.useQuery<inferProcedureOutput<AppRouter["unit"]["getByParentId"]>>({parentId: currentUnit.id});
-    console.log(childUnitQuery);
-    //while ()
+export const Hierarchy = ({ hierarchy }: HierarchyProps) => {
+    console.log(hierarchy);
     return (
+        // TODO: This needs styling, remember we need to take into account
+        //  we are displaying both Unit Hierarchy & Civ Final Comp!! :D
         <div className="container my-6 flex flex-row">
-            <Image
-                src="/archer.png"
-                alt="Placeholder image"
-                width={60}
-                height={40}
-                className="mx-8"
-            />
+            {hierarchy.map(({ model, isCurrent }, index) => (
+                <div key={model.id} className="flex items-center">
+                    <div className="flex flex-col items-center justify-center">
+                        <span>{model.name}</span>
+                        {isCurrent && (
+                            <div className="w-4 h-4 bg-blue-500 rounded-full"></div>
+                        )}
+                    </div>
+                    {index < hierarchy.length - 1 && (
+                        <Image src="/right-arrow.svg" alt="arrow" width={20} height={20} />
+                    )}
+                </div>
+            ))}
         </div>
-    )
-}
+    );
+};

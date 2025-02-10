@@ -1,8 +1,10 @@
 import { type inferProcedureOutput } from "@trpc/server";
 import { type AppRouter } from "@/server/api/root";
 import { TextImage } from "@/app/components/TextImage";
-import {InfoImage} from "@/app/components/InfoImage";
-import {ListItem} from "@/app/components/ListItem";
+import { InfoImage } from "@/app/components/InfoImage";
+import { ListItem } from "@/app/components/ListItem";
+import { UnitHierarchy } from "@/app/components/UnitHierarchy";
+import {CivCompHierarchy} from "@/app/components/CivHierarchy";
 
 interface GuideProps<T> {
     civDetails?: () => inferProcedureOutput<AppRouter["civilization"]["getCivilizationDetails"]>;
@@ -27,7 +29,7 @@ export const Guide = <T,>({
 
                     {civ.unique_units.length > 0 && (
                         <>
-                            <h2 className="mx-8 my-4 text-2xl font-bold text-[#ffffff]">
+                            <h2 className="mx-8 my-4 text-2xl font-bold text-white">
                                 Unique Unit(s)
                             </h2>
                             {civ.unique_units.map((unit, index) => (
@@ -46,7 +48,7 @@ export const Guide = <T,>({
 
                     {civ.unique_buildings.length > 0 && (
                         <>
-                            <h2 className="mx-8 my-4 text-2xl font-bold text-[#ffffff]">
+                            <h2 className="mx-8 my-4 text-2xl font-bold text-white">
                                 Unique Building(s)
                             </h2>
                             {civ.unique_buildings.map((building, index) => (
@@ -65,7 +67,7 @@ export const Guide = <T,>({
 
                     {civ.unique_technologies.length > 0 && (
                         <>
-                            <h2 className="mx-8 my-4 text-2xl font-bold text-[#ffffff]">
+                            <h2 className="mx-8 my-4 text-2xl font-bold text-white">
                                 Unique Technologies
                             </h2>
                             {civ.unique_technologies.map((technology, index) => (
@@ -84,11 +86,11 @@ export const Guide = <T,>({
 
                     {civ.civilization_bonuses.length > 0 && (
                         <>
-                            <h2 className="mx-8 my-4 text-2xl font-bold text-[#ffffff]">
+                            <h2 className="mx-8 my-4 text-2xl font-bold text-white">
                                 Civilization Bonuses
                             </h2>
                                 <div className="container flex flex-row mx-8">
-                                    <ul className="list-none space-y-2 text-[#ffffff]">
+                                    <ul className="list-none space-y-2 text-white">
                                         {civ.civilization_bonuses.map((bonus, index) => (
                                             <ListItem text={bonus.name} key={index} />
                                         ))}
@@ -99,12 +101,12 @@ export const Guide = <T,>({
 
                     {civ.team_bonuses.length > 0 && (
                         <>
-                            <h2 className="mx-8 my-4 text-2xl font-bold text-[#ffffff]">
+                            <h2 className="mx-8 my-4 text-2xl font-bold text-white">
                                 Team Bonuses
                             </h2>
 
                                 <div className="container flex flex-row mx-8">
-                                    <ul className="list-none space-y-2 text-[#ffffff]">
+                                    <ul className="list-none space-y-2 text-white">
                                         {civ.team_bonuses.map((teamBonus, index) => (
                                             <ListItem text={teamBonus.name} key={index} />
                                         ))}
@@ -113,6 +115,11 @@ export const Guide = <T,>({
 
                         </>
                     )}
+                    <div className="mx-8 my-4">
+                        <h1 className="font-bold text-2xl text-white">Final Composition</h1>
+                        <CivCompHierarchy civId={civ.id}/>
+                    </div>
+
                 </>
             )}
 
@@ -122,7 +129,7 @@ export const Guide = <T,>({
                         Guide
                     </h1>
                     <>
-                        <h2 className="mx-8 my-4 text-2xl font-bold text-[#ffffff]">
+                        <h2 className="mx-8 my-4 text-2xl font-bold text-white">
                             Unit Information
                         </h2>
                         <div className="flex flex-row space-x-6 mx-8">
@@ -130,7 +137,7 @@ export const Guide = <T,>({
                             <TextImage text={"all civs"} imagePath={unit.unit_type.type}/>
                             <TextImage text={unit.age.name} imagePath={unit.age.icon}/>
                         </div>
-                        <h2 className="mx-8 my-4 text-2xl font-bold text-[#ffffff]">
+                        <h2 className="mx-8 my-4 text-2xl font-bold text-white">
                             Training
                         </h2>
                         <div className="flex flex-row space-x-6 mx-8">
@@ -140,7 +147,7 @@ export const Guide = <T,>({
                             <TextImage text={unit.train_time.toString() + "s"} imagePath={unit.unit_type.type}/>
                             {/*TODO: Karlos fix backend ;)*/}
                         </div>
-                        <h2 className="mx-8 my-4 text-2xl font-bold text-[#ffffff]">
+                        <h2 className="mx-8 my-4 text-2xl font-bold text-white">
                             Statistics
                         </h2>
                         <div className="flex flex-row space-x-6 mx-8">
@@ -152,6 +159,7 @@ export const Guide = <T,>({
                             <TextImage text={unit.line_of_site.toString()} imagePath={unit.age.icon}/>
                             {/*TODO: Attack type for pierce & melee, change 'site' to 'sight' ;)*/}
                         </div>
+                        <UnitHierarchy unitId={unit.id} />
                     </>
                 </>
             )}

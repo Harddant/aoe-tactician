@@ -17,7 +17,7 @@ export const TextImage = ({text, imagePath}: TextImageProps) => {
                     alt={text}
                 />
             </div>
-            <p className="text-[#ffffff] text-sm first-letter:uppercase max-w-16">
+            <p className="text-white text-sm first-letter:uppercase max-w-16">
                 {text}
             </p>
         </div>
