@@ -5,6 +5,7 @@ import { InfoImage } from "@/app/components/InfoImage";
 import { ListItem } from "@/app/components/ListItem";
 import { UnitHierarchy } from "@/app/components/UnitHierarchy";
 import {CivCompHierarchy} from "@/app/components/CivHierarchy";
+import {StatImage} from "@/app/components/StatImage";
 
 interface GuideProps<T> {
     civDetails?: () => inferProcedureOutput<AppRouter["civilization"]["getCivilizationDetails"]>;
@@ -141,23 +142,27 @@ export const Guide = <T,>({
                             Training
                         </h2>
                         <div className="flex flex-row space-x-6 mx-8">
-                            <TextImage text={unit.train_food.toString()} imagePath={unit.unit_type.type}/>
-                            <TextImage text={unit.train_wood.toString()} imagePath={unit.unit_type.type}/>
-                            <TextImage text={unit.train_gold.toString()} imagePath={unit.age.icon}/>
-                            <TextImage text={unit.train_time.toString() + "s"} imagePath={unit.unit_type.type}/>
+                            <TextImage text={unit.train_food.toString()} imagePath={"/food.png"} />
+                            <TextImage text={unit.train_wood.toString()} imagePath={"/wood.png"} />
+                            <TextImage text={unit.train_gold.toString()} imagePath={"/gold.png"} />
+                            <TextImage text={unit.train_time.toString() + "s"} imagePath={unit.unit_type.type || "/archer.png"} />
                             {/*TODO: Karlos fix backend ;)*/}
                         </div>
                         <h2 className="mx-8 my-12 text-2xl font-bold text-white">
                             Statistics
                         </h2>
                         <div className="flex flex-row space-x-6 mx-8 my-4">
-                            <TextImage text={unit.hp.toString()} imagePath={unit.unit_type.type}/>
-                            <TextImage text={unit.attack.toString()} imagePath={unit.unit_type.type}/>
-                            <TextImage text={unit.armour.toString()} imagePath={unit.age.icon}/>
-                            <TextImage text={unit.pierce.toString()} imagePath={unit.unit_type.type}/>
-                            <TextImage text={unit.speed.toString()} imagePath={unit.age.icon}/>
-                            <TextImage text={unit.line_of_site.toString()} imagePath={unit.age.icon}/>
+                            <TextImage text={unit.hp.toString()} imagePath={"/health.png"}/>
+                            <TextImage text={unit.attack.toString()} imagePath={"/melee_attack.png"}/>
+                            <TextImage text={unit.armour.toString()} imagePath={"/melee_armor.png"}/>
+                            <TextImage text={unit.pierce.toString()} imagePath={"/pierce_armor.png"}/>
+                            <TextImage text={unit.speed.toString()} imagePath={"/speed.png"}/>
+                            <TextImage text={unit.line_of_site.toString()} imagePath={"/los.png"}/>
                             {/*TODO: Attack type for pierce & melee, change 'site' to 'sight' ;)*/}
+                        </div>
+                        <div className="flex flex-col my-4">
+                            <StatImage text={"Reload Time:"} imagePath={"/reload.png"} description={"+2 vs Eagle, Warrior, +2 vs Standard, Building"} />
+                            <StatImage text={"Attack Bonus:"} imagePath={"/attack_bonus.png"} description={"+2 vs Eagle, Warrior, +2 vs Standard, Building"} />
                         </div>
                         <h2 className="mx-8 my-12 text-2xl font-bold text-white">
                             Hierarchy

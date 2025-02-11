@@ -15,7 +15,7 @@ export const Hierarchy = ({ hierarchy, type }: HierarchyProps) => {
             {hierarchy.map(({ model, isCurrent }, index) => (
                 <div key={model.id} className="flex items-center justify-center mx-4">
                     <div className={`flex flex-col items-center justify-center text-center ${type === "civ" ? "mx-12" : "mx-0"}`}>
-                        <div className={`rounded-full p-3 w-full flex flex-col justify-center items-center  ${isCurrent && "border-[#d1a756] border-2"}`}>
+                        <div className={`rounded-full p-4 w-full flex flex-col justify-center items-center  ${isCurrent && "border-[#d1a756] border-4"}`}>
                             <Image src="/archer.png" alt="Unit" width={60} height={60}/>
                         </div>
                         <span className={`${isCurrent ? "text-[#d1a756]" : "text-white"}`}>{model.name}</span>

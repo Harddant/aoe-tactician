@@ -5,13 +5,14 @@ interface TextImageProps {
     imagePath: string;
 }
 
-export const TextImage = ({text, imagePath}: TextImageProps) => {
+export const TextImage = ({ text, imagePath }: TextImageProps) => {
+    const validImagePath = imagePath.startsWith("/") ? imagePath : `/archer.png`;
 
     return (
         <div className="flex flex-wrap justify-center text-center items-center w-20 flex-col gap-2 border-2 border-white">
             <div>
                 <Image
-                    src="/archer.png"
+                    src={validImagePath}
                     width={40}
                     height={40}
                     alt={text}
@@ -21,5 +22,5 @@ export const TextImage = ({text, imagePath}: TextImageProps) => {
                 {text}
             </p>
         </div>
-    )
-}
+    );
+};
