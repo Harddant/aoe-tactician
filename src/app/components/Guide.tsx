@@ -22,8 +22,8 @@ export const Guide = <T,>({
     return (
         <>
             {civ && (
-                <>
-                    <h1 className="flex justify-center py-4 text-6xl text-[#d1a756]">
+                <div className="w-full">
+                    <h1 className="flex justify-center text-6xl text-[#d1a756]">
                         Guide
                     </h1>
 
@@ -89,13 +89,13 @@ export const Guide = <T,>({
                             <h2 className="mx-8 my-4 text-4xl font-bold text-white">
                                 Civilization Bonuses
                             </h2>
-                                <div className="container flex flex-row mx-8">
-                                    <ul className="list-none space-y-2 text-white">
-                                        {civ.civilization_bonuses.map((bonus, index) => (
-                                            <ListItem text={bonus.name} key={index} />
-                                        ))}
-                                    </ul>
-                                </div>
+                            <div className="flex flex-row mx-8">
+                                <ul className="list-none space-y-2 text-white">
+                                    {civ.civilization_bonuses.map((bonus, index) => (
+                                        <ListItem text={bonus.name} key={index} />
+                                    ))}
+                                </ul>
+                            </div>
                         </>
                     )}
 
@@ -105,7 +105,7 @@ export const Guide = <T,>({
                                 Team Bonuses
                             </h2>
 
-                                <div className="container flex flex-row mx-8">
+                                <div className="flex flex-row mx-8">
                                     <ul className="list-none space-y-2 text-white">
                                         {civ.team_bonuses.map((teamBonus, index) => (
                                             <ListItem text={teamBonus.name} key={index} />
@@ -120,7 +120,7 @@ export const Guide = <T,>({
                         <CivCompHierarchy civId={civ.id}/>
                     </div>
 
-                </>
+                </div>
             )}
 
             {unit && (
