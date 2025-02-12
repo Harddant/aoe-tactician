@@ -6,6 +6,7 @@ import { CounterCiv } from "@/app/components/CounterCiv";
 import { GuideCiv } from "@/app/components/GuideCiv";
 import { useState } from "react";
 import { type Civilization } from "@prisma/client";
+import {Footer} from "@/app/components/Footer";
 
 
 export const Wrapper = () => {
@@ -26,6 +27,7 @@ export const Wrapper = () => {
             {selectedItem && (
                 <section id="civ-guide" className="h-screen w-full">
                     <GuideCiv selectedItem={selectedItem}/>
+                    <Footer />
                 </section>
             )}
 

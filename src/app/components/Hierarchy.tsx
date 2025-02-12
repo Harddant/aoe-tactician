@@ -9,8 +9,6 @@ interface HierarchyProps {
 export const Hierarchy = ({ hierarchy, type }: HierarchyProps) => {
     console.log(hierarchy);
     return (
-        // TODO: This needs styling, remember we need to take into account
-        //  we are displaying both Unit Hierarchy & Civ Final Comp!! :D
         <div className="my-6 flex flex-row items-center justify-center text-center">
             {hierarchy.map(({ model, isCurrent }, index) => (
                 <div key={model.id} className="flex items-center justify-center mx-4">
@@ -20,7 +18,6 @@ export const Hierarchy = ({ hierarchy, type }: HierarchyProps) => {
                         </div>
                         <span className={`${isCurrent ? "text-[#d1a756]" : "text-white"}`}>{model.name}</span>
                     </div>
-
                     {index < hierarchy.length - 1 && type === "unit" && (
                         <Image src="/right-arrow.svg" alt="arrow" width={20} height={20} className="invert mx-8 my-4" />
                     )}
