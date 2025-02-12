@@ -1,15 +1,10 @@
 import { HydrateClient } from "@/trpc/server";
-import { Navbar } from "./components/Navbar"
-import { CivPicker } from "@/app/components/CivPicker";
-
+import { Wrapper } from "@/app/components/Wrapper";
 
 export default async function Home() {
-  return (
-    <HydrateClient>
-      <div>
-        <Navbar />
-        <CivPicker />
-      </div>
-    </HydrateClient>
-  );
+    return (
+        <HydrateClient>
+            <Wrapper />
+        </HydrateClient>
+    );
 }
