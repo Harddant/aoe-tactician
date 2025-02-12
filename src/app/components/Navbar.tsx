@@ -14,8 +14,8 @@ export const Navbar = () => {
 
     return (
         <nav className="border-b-[1px] border-t-[1px] border-white text-white ">
-            <div className="flex items-center justify-between container mx-auto">
-                <div className="flex items-center justify-center pr-24 pl-4 my-2">
+            <div className="flex items-center justify-between mx-auto">
+                <div className="flex items-center justify-center pr-24 pl-6 my-2">
                     <Image
                         src="/tactician-logo.png"
                         width={60}
@@ -33,7 +33,7 @@ export const Navbar = () => {
                         Civilization Counters
                     </Link>
 
-                    <h1 className="text-center font-bold flex-grow text-2xl mx-6 text-[#fada8b]">
+                    <h1 className="text-center font-bold flex-grow text-2xl ml-10 text-[#fada8b]">
                         AoE Tactician
                     </h1>
 

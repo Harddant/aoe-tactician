@@ -23,13 +23,13 @@ export const Guide = <T,>({
         <>
             {civ && (
                 <>
-                    <h1 className="flex justify-center py-4 text-4xl text-[#d1a756]">
+                    <h1 className="flex justify-center py-4 text-6xl text-[#d1a756]">
                         Guide
                     </h1>
 
                     {civ.unique_units.length > 0 && (
                         <>
-                            <h2 className="mx-8 my-4 text-2xl font-bold text-white">
+                            <h2 className="mx-8 my-4 text-4xl font-bold text-white">
                                 Unique Unit(s)
                             </h2>
                             {civ.unique_units.map((unit, index) => (
@@ -48,7 +48,7 @@ export const Guide = <T,>({
 
                     {civ.unique_buildings.length > 0 && (
                         <>
-                            <h2 className="mx-8 my-4 text-2xl font-bold text-white">
+                            <h2 className="mx-8 my-4 text-4xl font-bold text-white">
                                 Unique Building(s)
                             </h2>
                             {civ.unique_buildings.map((building, index) => (
@@ -67,7 +67,7 @@ export const Guide = <T,>({
 
                     {civ.unique_technologies.length > 0 && (
                         <>
-                            <h2 className="mx-8 my-4 text-2xl font-bold text-white">
+                            <h2 className="mx-8 my-4 text-4xl font-bold text-white">
                                 Unique Technologies
                             </h2>
                             {civ.unique_technologies.map((technology, index) => (
@@ -86,7 +86,7 @@ export const Guide = <T,>({
 
                     {civ.civilization_bonuses.length > 0 && (
                         <>
-                            <h2 className="mx-8 my-4 text-2xl font-bold text-white">
+                            <h2 className="mx-8 my-4 text-4xl font-bold text-white">
                                 Civilization Bonuses
                             </h2>
                                 <div className="container flex flex-row mx-8">
@@ -101,7 +101,7 @@ export const Guide = <T,>({
 
                     {civ.team_bonuses.length > 0 && (
                         <>
-                            <h2 className="mx-8 my-4 text-2xl font-bold text-white">
+                            <h2 className="mx-8 my-4 text-4xl font-bold text-white">
                                 Team Bonuses
                             </h2>
 
@@ -116,7 +116,7 @@ export const Guide = <T,>({
                         </>
                     )}
                     <div className="mx-8 my-4">
-                        <h1 className="font-bold text-2xl text-white">Final Composition</h1>
+                        <h1 className="font-bold text-4xl text-white">Final Composition</h1>
                         <CivCompHierarchy civId={civ.id}/>
                     </div>
 
@@ -125,11 +125,11 @@ export const Guide = <T,>({
 
             {unit && (
                 <>
-                    <h1 className="flex justify-center py-4 text-4xl text-[#d1a756]">
+                    <h1 className="flex justify-center py-4 text-6xl text-[#d1a756]">
                         Guide
                     </h1>
                     <>
-                        <h2 className="mx-8 my-12 text-2xl font-bold text-white">
+                        <h2 className="mx-8 my-12 text-4xl font-bold text-white">
                             Unit Information
                         </h2>
                         <div className="flex flex-row space-x-6 mx-8">
@@ -137,7 +137,7 @@ export const Guide = <T,>({
                             <TextImage text={"all civs"} imagePath={unit.unit_type.type}/>
                             <TextImage text={unit.age.name} imagePath={unit.age.icon}/>
                         </div>
-                        <h2 className="mx-8 my-12 text-2xl font-bold text-white">
+                        <h2 className="mx-8 my-12 text-4xl font-bold text-white">
                             Training
                         </h2>
                         <div className="flex flex-row space-x-6 mx-8">
@@ -147,7 +147,7 @@ export const Guide = <T,>({
                             <TextImage text={unit.train_time.toString() + "s"} imagePath={unit.unit_type.type}/>
                             {/*TODO: Karlos fix backend ;)*/}
                         </div>
-                        <h2 className="mx-8 my-12 text-2xl font-bold text-white">
+                        <h2 className="mx-8 my-12 text-4xl font-bold text-white">
                             Statistics
                         </h2>
                         <div className="flex flex-row space-x-6 mx-8 my-4">
@@ -159,7 +159,7 @@ export const Guide = <T,>({
                             <TextImage text={unit.line_of_site.toString()} imagePath={unit.age.icon}/>
                             {/*TODO: Attack type for pierce & melee, change 'site' to 'sight' ;)*/}
                         </div>
-                        <h2 className="mx-8 my-12 text-2xl font-bold text-white">
+                        <h2 className="mx-8 my-12 text-4xl font-bold text-white">
                             Hierarchy
                         </h2>
                         <UnitHierarchy unitId={unit.id} />
