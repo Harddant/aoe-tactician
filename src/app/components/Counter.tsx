@@ -30,7 +30,7 @@ export const Counter = <T,>({
 }: CounterProps<T>) => {
     return (
       <>
-        <div className="flex flex-row items-center justify-center py-4 text-4xl text-[#d1a756]">
+        <div className="flex flex-row items-center justify-center py-4 text-6xl text-[#d1a756]">
           <h1 className=""> {title} </h1>
           <Image
             src={
