@@ -44,7 +44,7 @@ export const UnitSection  = ({
                 selectedItem={selectedItem}
                 customImage="/select-unit.png"
             />
-            <div className="flex flex-row items-center justify-center gap-32 text-white">
+            <div className="flex flex-row items-center justify-center gap-32 text-white pb-80">
                 <button onClick={() => scrollToSection('unit-counters')} className="rounded-3xl border-4 border-[#d1a756] px-[4rem] py-6">
                     Counters
                 </button>

@@ -43,7 +43,7 @@ export const CivilizationSection  = ({selectedItem, setSelectedItem}: {
         selectedItem={selectedItem}
         customImage="/select-civ.jpg"
       />
-      <div className="flex flex-row items-center justify-center gap-32 text-white">
+      <div className="flex flex-row items-center justify-center gap-32 text-white pb-80">
         <button onClick={() => scrollToSection ('civ-counters')} className="rounded-3xl border-4 border-[#d1a756] px-[4rem] py-6">
             Counters
         </button>

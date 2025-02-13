@@ -11,8 +11,8 @@ import {Footer} from "@/app/components/Footer";
 export const UnitWrapper = () =>  {
     const [selectedItem, setSelectedItem] = useState<Unit | null>(null);
     return (
-      <div className="h-screen w-full">
-        <section className="h-full w-full">
+      <div className="w-full">
+        <section className="w-full">
           <Navbar />
           <UnitSection
             selectedItem={selectedItem}
@@ -21,7 +21,7 @@ export const UnitWrapper = () =>  {
         </section>
 
         {selectedItem && (
-          <section id="unit-counters" className="h-screen w-full">
+          <section id="unit-counters" className="w-full">
             <CounterUnit
               selectedItem={selectedItem}
               setSelectedItem={setSelectedItem}
@@ -30,7 +30,7 @@ export const UnitWrapper = () =>  {
         )}
 
         {selectedItem && (
-          <section id="unit-guide" className="h-screen w-full">
+          <section id="unit-guide" className="w-full">
             <GuideUnit selectedItem={selectedItem} />
             <Footer />
           </section>
