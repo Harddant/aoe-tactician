@@ -26,54 +26,82 @@ export const ModelItem = ({ modelType, currentModelId, setCurrentModelId, setNew
 
     const queryResult = currentModelId ? (() => {
         switch (modelType.toLowerCase()) {
-            case "civilizations":
-                return api.civilization.getById.useQuery({ id: currentModelId });
-            case "units":
-                return api.unit.getById.useQuery({ id: currentModelId });
             case "ages":
                 return api.age.getById.useQuery({ id: currentModelId });
-            case "unittype":
-                return api.unitType.getById.useQuery({ id: currentModelId });
+            case "civilizations":
+                return api.civilization.getById.useQuery({ id: currentModelId });
+            case "civilizationbonus":
+                return api.civilizationBonus.getById.useQuery({ id: currentModelId });
+            case "teambonus":
+                return api.teamBonus.getById.useQuery({ id: currentModelId });
             case "trainingbuilding":
                 return api.trainingBuilding.getById.useQuery({ id: currentModelId });
+            case "uniquebuilding":
+                return api.uniqueBuilding.getById.useQuery({ id: currentModelId });
+            case "uniquetechnology":
+                return api.uniqueTechnology.getById.useQuery({ id: currentModelId });
+            case "units":
+                return api.unit.getById.useQuery({ id: currentModelId });
+            case "unittype":
+                return api.unitType.getById.useQuery({ id: currentModelId });
             default:
                 return null;
         }
     })() : null;
 
-    const unitTypesQuery = api.unitType?.getAll.useQuery();
-    const civilizationsQuery = api.civilization?.getAll.useQuery();
     const agesQuery = api.age?.getAll.useQuery();
-    const unitQuery = api.unit?.getAll.useQuery();
+    const civilizationsQuery = api.civilization?.getAll.useQuery();
+    const civilizationBonusQuery = api.civilizationBonus?.getAll.useQuery();
+    const teamBonusQuery = api.teamBonus?.getAll.useQuery();
     const trainingBuildingQuery = api.trainingBuilding?.getAll.useQuery();
+    const uniqueBuildingQuery = api.uniqueBuilding?.getAll.useQuery();
+    const uniqueTechnologyQuery = api.uniqueTechnology?.getAll.useQuery();
+    const unitQuery = api.unit?.getAll.useQuery();
+    const unitTypesQuery = api.unitType?.getAll.useQuery();
 
-    const civilizationCreateMutation = api.civilization.create.useMutation();
-    const unitCreateMutation = api.unit.create.useMutation();
     const ageCreateMutation = api.age.create.useMutation();
-    const unitTypeCreateMutation = api.unitType.create.useMutation();
+    const civilizationCreateMutation = api.civilization.create.useMutation();
+    const civilizationBonusCreateMutation = api.civilizationBonus.create.useMutation();
+    const teamBonusCreateMutation = api.teamBonus.create.useMutation();
     const trainingBuildingCreateMutation = api.trainingBuilding.create.useMutation();
+    const uniqueBuildingCreateMutation = api.uniqueBuilding.create.useMutation();
+    const uniqueTechnologyCreateMutation = api.uniqueTechnology.create.useMutation();
+    const unitCreateMutation = api.unit.create.useMutation();
+    const unitTypeCreateMutation = api.unitType.create.useMutation();
 
-    const civilizationMutation = api.civilization.update.useMutation();
-    const unitMutation = api.unit.update.useMutation();
     const ageMutation = api.age.update.useMutation();
-    const unitTypeMutation = api.unitType.update.useMutation();
+    const civilizationMutation = api.civilization.update.useMutation();
+    const civilizationBonusMutation = api.civilizationBonus.update.useMutation();
+    const teamBonusMutation = api.teamBonus.update.useMutation();
     const trainingBuildingMutation = api.trainingBuilding.update.useMutation();
+    const uniqueBuildingMutation = api.uniqueBuilding.update.useMutation();
+    const uniqueTechnologyMutation = api.uniqueTechnology.update.useMutation();
+    const unitMutation = api.unit.update.useMutation();
+    const unitTypeMutation = api.unitType.update.useMutation();
 
-    const civilizationDeleteMutation = api.civilization.delete.useMutation();
-    const unitDeleteMutation = api.unit.delete.useMutation();
     const ageDeleteMutation = api.age.delete.useMutation();
+    const civilizationDeleteMutation = api.civilization.delete.useMutation();
+    const civilizationBonusDeleteMutation = api.civilizationBonus.delete.useMutation();
+    const teamBonusDeleteMutation = api.teamBonus.delete.useMutation();
+    const trainingBuildingDeleteMutation = api.trainingBuilding.delete.useMutation();
+    const uniqueBuildingDeleteMutation = api.uniqueBuilding.delete.useMutation();
+    const uniqueTechnologyDeleteMutation = api.uniqueTechnology.delete.useMutation();
+    const unitDeleteMutation = api.unit.delete.useMutation();
     const unitTypeDeleteMutation = api.unitType.delete.useMutation();
-    const trainingBuildingDeleteMutation = api.civilization.delete.useMutation();
-
 
     const getRelationshipData = (fieldName: string) => {
         const relationshipMap: Record<string, any> = {
-            'unit_type_id': unitTypesQuery.data,
-            'civilization_id': civilizationsQuery.data,
             'age_id': agesQuery.data,
-            'training_building_id': trainingBuildingQuery.data,
+            'civilization_id': civilizationsQuery.data,
+            'civilization_bonus_id': civilizationBonusQuery.data,
             'parent_age_id': agesQuery.data,
             'parent_unit_id': unitQuery.data,
+            'team_bonus_id': teamBonusQuery.data,
+            'training_building_id': trainingBuildingQuery.data,
+            'unique_building_id': uniqueBuildingQuery.data,
+            'unique_technology_id': uniqueTechnologyQuery.data,
+            'unit_id': unitQuery.data,
+            'unit_type_id': unitTypesQuery.data,
         };
         return relationshipMap[fieldName] || [];
     };
@@ -141,20 +169,32 @@ export const ModelItem = ({ modelType, currentModelId, setCurrentModelId, setNew
 
         try {
             switch (modelType.toLowerCase()) {
+                case "ages":
+                    ageMutation.mutate(updateData);
+                    break;
                 case "civilizations":
                     civilizationMutation.mutate(updateData);
+                    break;
+                case "civilization bonuses":
+                    civilizationBonusMutation.mutate(updateData);
+                    break;
+                case "team bonuses":
+                    teamBonusMutation.mutate(updateData);
+                    break;
+                case "training buildings":
+                    trainingBuildingMutation.mutate(updateData);
+                    break;
+                case "unique buildings":
+                    uniqueBuildingMutation.mutate(updateData);
+                    break;
+                case "unique technologies":
+                    uniqueTechnologyMutation.mutate(updateData);
                     break;
                 case "units":
                     unitMutation.mutate(updateData);
                     break;
-                case "ages":
-                    ageMutation.mutate(updateData);
-                    break;
                 case "unit types":
                     unitTypeMutation.mutate(updateData);
-                    break;
-                case "training buildings":
-                    trainingBuildingMutation.mutate(updateData);
                     break;
                 default:
                     throw new Error("Unsupported model type");
@@ -178,20 +218,32 @@ export const ModelItem = ({ modelType, currentModelId, setCurrentModelId, setNew
 
             let newRecord;
             switch (modelType.toLowerCase()) {
+                case "ages":
+                    newRecord = await ageCreateMutation.mutateAsync(createData);
+                    break;
                 case "civilizations":
                     newRecord = await civilizationCreateMutation.mutateAsync(createData);
+                    break;
+                case "civilization bonuses":
+                    newRecord = await civilizationBonusCreateMutation.mutateAsync(createData);
+                    break;
+                case "team bonuses":
+                    newRecord = await teamBonusCreateMutation.mutateAsync(createData);
+                    break;
+                case "training buildings":
+                    newRecord = await trainingBuildingCreateMutation.mutateAsync(createData);
+                    break;
+                case "unique buildings":
+                    newRecord = await uniqueBuildingCreateMutation.mutateAsync(createData);
+                    break;
+                case "unique technologies":
+                    newRecord = await uniqueTechnologyCreateMutation.mutateAsync(createData);
                     break;
                 case "units":
                     newRecord = await unitCreateMutation.mutateAsync(createData);
                     break;
-                case "ages":
-                    newRecord = await ageCreateMutation.mutateAsync(createData);
-                    break;
                 case "unit types":
                     newRecord = await unitTypeCreateMutation.mutateAsync(createData);
-                    break;
-                case "training buildings":
-                    newRecord = await trainingBuildingCreateMutation.mutateAsync(createData);
                     break;
                 default:
                     throw new Error("Unsupported model type");
@@ -207,20 +259,32 @@ export const ModelItem = ({ modelType, currentModelId, setCurrentModelId, setNew
                 }
 
                 switch (modelType.toLowerCase()) {
-                    case "civilizations":
-                        await civilizationMutation.mutateAsync(updateData);
-                        break;
-                    case "units":
-                        await unitMutation.mutateAsync(updateData);
-                        break;
                     case "ages":
-                        await ageMutation.mutateAsync(updateData);
+                        await ageCreateMutation.mutateAsync(updateData);
                         break;
-                    case "unit types":
-                        await unitTypeMutation.mutateAsync(updateData);
+                    case "civilizations":
+                        await civilizationCreateMutation.mutateAsync(updateData);
+                        break;
+                    case "civilization bonuses":
+                        await civilizationBonusCreateMutation.mutateAsync(updateData);
+                        break;
+                    case "team bonuses":
+                        await teamBonusCreateMutation.mutateAsync(updateData);
                         break;
                     case "training buildings":
-                        await trainingBuildingMutation.mutateAsync(updateData);
+                        await trainingBuildingCreateMutation.mutateAsync(updateData);
+                        break;
+                    case "unique buildings":
+                        await uniqueBuildingCreateMutation.mutateAsync(updateData);
+                        break;
+                    case "unique technologies":
+                        await uniqueTechnologyCreateMutation.mutateAsync(updateData);
+                        break;
+                    case "units":
+                        await unitCreateMutation.mutateAsync(updateData);
+                        break;
+                    case "unit types":
+                        await unitTypeCreateMutation.mutateAsync(updateData);
                         break;
                 }
             }
@@ -239,20 +303,32 @@ export const ModelItem = ({ modelType, currentModelId, setCurrentModelId, setNew
         if (!currentModelId) return;
         try {
             switch (modelType.toLowerCase()) {
+                case "ages":
+                    ageDeleteMutation.mutate({id: currentModelId});
+                    break;
                 case "civilizations":
                     civilizationDeleteMutation.mutate({id: currentModelId});
+                    break;
+                case "civilization bonuses":
+                    civilizationBonusDeleteMutation.mutate({id: currentModelId});
+                    break;
+                case "team bonuses":
+                    teamBonusDeleteMutation.mutate({id: currentModelId});
+                    break;
+                case "training buildings":
+                    trainingBuildingDeleteMutation.mutate({id: currentModelId});
+                    break;
+                case "unique buildings":
+                    uniqueBuildingDeleteMutation.mutate({id: currentModelId});
+                    break;
+                case "unique technologies":
+                    uniqueTechnologyDeleteMutation.mutate({id: currentModelId});
                     break;
                 case "units":
                     unitDeleteMutation.mutate({id: currentModelId});
                     break;
-                case "ages":
-                    ageDeleteMutation.mutate({id: currentModelId});
-                    break;
                 case "unit types":
                     unitTypeDeleteMutation.mutate({id: currentModelId});
-                    break;
-                case "training buildings":
-                    trainingBuildingDeleteMutation.mutate({id: currentModelId});
                     break;
                 default:
                     throw new Error("Unsupported model type");
