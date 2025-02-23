@@ -67,7 +67,7 @@ export const ageRouter = createTRPCRouter({
             })
         )
         .mutation(async ({ input }) => {
-            const { id } = input;
+            const { id, icon, ...data } = input;
             return prisma.age.update({
                 where: { id },
                 data: {

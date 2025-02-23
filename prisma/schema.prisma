@@ -32,10 +32,25 @@ model Civilization {
 
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
-  deleted_at DateTime @default(now())
+  deleted_at DateTime?
 
   @@index([id])
   @@map("civilization")
+}
+
+model TrainingBuilding {
+  id   Int    @id @default(autoincrement())
+  name String
+  logo String
+
+  child_units Unit[] @relation("UnitTrainingBuilding")
+
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+  deleted_at DateTime?
+
+  @@index([id])
+  @@map("trainingBuilding")
 }
 
 model EffectiveCivilization {
@@ -46,7 +61,7 @@ model EffectiveCivilization {
 
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
-  deleted_at DateTime @default(now())
+  deleted_at DateTime?
 
   @@id([civilization_one_id, civilization_two_id])
   @@index([civilization_one_id])
@@ -62,7 +77,7 @@ model SynergyCivilization {
 
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
-  deleted_at DateTime @default(now())
+  deleted_at DateTime?
 
   @@id([civilization_one_id, civilization_two_id])
   @@index([civilization_one_id])
@@ -78,7 +93,7 @@ model CounterCivilization {
 
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
-  deleted_at DateTime @default(now())
+  deleted_at DateTime?
 
   @@id([civilization_one_id, civilization_two_id])
   @@index([civilization_one_id])
@@ -94,7 +109,7 @@ model EffectiveUnit {
 
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
-  deleted_at DateTime @default(now())
+  deleted_at DateTime?
 
   @@id([unit_one_id, unit_two_id])
   @@index([unit_one_id])
@@ -110,7 +125,7 @@ model CounterUnit {
 
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
-  deleted_at DateTime @default(now())
+  deleted_at DateTime?
 
   @@id([unit_one_id, unit_two_id])
   @@index([unit_one_id])
@@ -126,7 +141,7 @@ model SynergyUnit {
 
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
-  deleted_at DateTime @default(now())
+  deleted_at DateTime?
 
   @@id([unit_one_id, unit_two_id])
   @@index([unit_one_id])
@@ -142,7 +157,7 @@ model UniqueUnit {
 
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
-  deleted_at DateTime @default(now())
+  deleted_at DateTime?
 
   @@id([civilization_id, unit_id])
   @@index([civilization_id])
@@ -158,7 +173,7 @@ model CompositionUnit {
 
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
-  deleted_at DateTime @default(now())
+  deleted_at DateTime?
 
   @@id([civilization_id, unit_id])
   @@index([civilization_id])
@@ -176,7 +191,7 @@ model CivilizationBonus {
 
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
-  deleted_at DateTime @default(now())
+  deleted_at DateTime?
 
   @@index([civilization_id])
   @@map("civilizationBonus")
@@ -192,7 +207,7 @@ model TeamBonus {
 
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
-  deleted_at DateTime @default(now())
+  deleted_at DateTime?
 
   @@index([civilization_id])
   @@map("teamBonus")
@@ -208,7 +223,7 @@ model UniqueTechnology {
 
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
-  deleted_at DateTime @default(now())
+  deleted_at DateTime?
 
   @@index([civilization_id])
   @@map("uniqueTechnology")
@@ -224,7 +239,7 @@ model UniqueBuilding {
 
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
-  deleted_at DateTime @default(now())
+  deleted_at DateTime?
 
   @@index([civilization_id])
   @@map("uniqueBuilding")
@@ -242,7 +257,7 @@ model Age {
 
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
-  deleted_at DateTime @default(now())
+  deleted_at DateTime?
 
   @@index([parent_age_id])
   @@map("age")
@@ -256,55 +271,59 @@ model UnitType {
 
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
-  deleted_at DateTime @default(now())
+  deleted_at DateTime?
 
   @@index([id])
   @@map("unitType")
 }
 
 model Unit {
-  id           Int    @id @default(autoincrement())
-  name         String
-  description  String
-  icon         String
-  train_food   Int
-  train_wood   Int
-  train_gold   Int
-  train_time   Float
-  upgrade_food Int
-  upgrade_wood Int
-  upgrade_gold Int
-  upgrade_time Float
-  hp           Int
-  attack       Int
-  reload_time  Float
-  armour       Int
-  pierce       Int
-  speed        Float
-  line_of_site Float
+  id            Int    @id @default(autoincrement())
+  name          String
+  description   String
+  icon          String
+  train_food    Int
+  train_wood    Int
+  train_gold    Int
+  train_time    Float
+  upgrade_food  Int
+  upgrade_wood  Int
+  upgrade_gold  Int
+  upgrade_time  Float
+  hp            Int
+  melee_attack  Int @default(1)
+  pierce_attack Int @default(1)
+  reload_time   Float
+  armour        Int
+  pierce        Int
+  speed         Float
+  line_of_sight Float @default(1)
 
-  unit_type_id        Int
-  unit_type           UnitType         @relation("UnitType", fields: [unit_type_id], references: [id])
-  age_id              Int
-  age                 Age              @relation("UnitAge", fields: [age_id], references: [id])
-  parent_unit_id      Int?
-  parent_unit         Unit?            @relation("ParentUnit", fields: [parent_unit_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  child_units         Unit[]           @relation("ParentUnit")
-  unique_unit         UniqueUnit?      @relation("UniqueUnitUnit")
-  composition_unit    CompositionUnit? @relation("CompositionUnitUnit")
-  effective_unit_ones EffectiveUnit[]  @relation("EffectiveUnitOne")
-  effective_unit_twos EffectiveUnit[]  @relation("EffectiveUnitTwo")
-  synergy_unit_ones   SynergyUnit[]    @relation("SynergyUnitOne")
-  synergy_unit_twos   SynergyUnit[]    @relation("SynergyUnitTwo")
-  counter_unit_ones   CounterUnit[]    @relation("CounterUnitOne")
-  counter_unit_twos   CounterUnit[]    @relation("CounterUnitTwo")
+  unit_type_id         Int
+  unit_type            UnitType         @relation("UnitType", fields: [unit_type_id], references: [id])
+  age_id               Int
+  age                  Age              @relation("UnitAge", fields: [age_id], references: [id])
+  training_building_id Int @default(1)
+  training_building    TrainingBuilding @relation("UnitTrainingBuilding", fields: [training_building_id], references: [id])
+  parent_unit_id       Int?
+  parent_unit          Unit?            @relation("ParentUnit", fields: [parent_unit_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  child_units          Unit[]           @relation("ParentUnit")
+  unique_unit          UniqueUnit?      @relation("UniqueUnitUnit")
+  composition_unit     CompositionUnit? @relation("CompositionUnitUnit")
+  effective_unit_ones  EffectiveUnit[]  @relation("EffectiveUnitOne")
+  effective_unit_twos  EffectiveUnit[]  @relation("EffectiveUnitTwo")
+  synergy_unit_ones    SynergyUnit[]    @relation("SynergyUnitOne")
+  synergy_unit_twos    SynergyUnit[]    @relation("SynergyUnitTwo")
+  counter_unit_ones    CounterUnit[]    @relation("CounterUnitOne")
+  counter_unit_twos    CounterUnit[]    @relation("CounterUnitTwo")
 
   created_at DateTime @default(now())
   updated_at DateTime @default(now())
-  deleted_at DateTime @default(now())
+  deleted_at DateTime?
 
   @@index([parent_unit_id])
   @@index([age_id])
   @@index([unit_type_id])
+  @@index([training_building_id])
   @@map("unit")
 }

@@ -145,7 +145,7 @@ export const Guide = <T,>({
                             <TextImage text={unit.train_food.toString()} imagePath={"/food.png"} />
                             <TextImage text={unit.train_wood.toString()} imagePath={"/wood.png"} />
                             <TextImage text={unit.train_gold.toString()} imagePath={"/gold.png"} />
-                            <TextImage text={unit.train_time.toString() + "s"} imagePath={unit.unit_type.type || "/archer.png"} />
+                            <TextImage text={`${unit.train_time.toString()}s`} imagePath={unit.unit_type.type || "/archer.png"} />
                             {/*TODO: Karlos fix backend ;)*/}
                         </div>
                         <h2 className="mx-8 my-12 text-4xl font-bold text-white">
@@ -153,12 +153,12 @@ export const Guide = <T,>({
                         </h2>
                         <div className="flex flex-row space-x-6 mx-8 my-4">
                             <TextImage text={unit.hp.toString()} imagePath={"/health.png"}/>
-                            <TextImage text={unit.attack.toString()} imagePath={"/melee_attack.png"}/>
+                            <TextImage text={unit.melee_attack.toString()} imagePath={"/melee_attack.png"}/>
+                            <TextImage text={unit.pierce_attack.toString()} imagePath={"/melee_attack.png"}/>
                             <TextImage text={unit.armour.toString()} imagePath={"/melee_armor.png"}/>
                             <TextImage text={unit.pierce.toString()} imagePath={"/pierce_armor.png"}/>
                             <TextImage text={unit.speed.toString()} imagePath={"/speed.png"}/>
-                            <TextImage text={unit.line_of_site.toString()} imagePath={"/los.png"}/>
-                            {/*TODO: Attack type for pierce & melee, change 'site' to 'sight' ;)*/}
+                            <TextImage text={unit.line_of_sight.toString()} imagePath={"/los.png"}/>
                         </div>
                         <div className="flex flex-col my-4">
                             <StatImage text={"Reload Time:"} imagePath={"/reload.png"} description={"+2 vs Eagle, Warrior, +2 vs Standard, Building"} />
