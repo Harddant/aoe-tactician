@@ -45,3 +45,11 @@ yarn-error.log*
 
 # idea files
 .idea
+
+#images
+/public/models
+/public/models*
+/public/models/*
+public/models
+public/models*
+public/models/*
